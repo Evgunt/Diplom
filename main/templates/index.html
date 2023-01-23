@@ -1,0 +1,172 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block content %}
+<main id="fullpage">
+        <section class="big_img section" data-anchor="block1">
+            <div class="header">
+                <div class="header_left">
+                    <a class="header_top" href="/">
+                        <img src="{% static 'img/favicon.png'%}" alt="logo">
+                        <div class="logo">EasyAuth</div>
+                    </a>
+                </div>
+                <nav class="header_midl">
+                    <a href="#block2" class="header_midl__item">О веб-приложении</a>
+                    <a href="#block3" class="header_midl__item">Как это работает</a>
+                    <a href="#block4" class="header_midl__item">Тарифы</a>
+                </nav>
+                <div class="header_right">
+                    <a href="#" class="reg">Зарегистрироваться</a>
+                    <a href="/login" class="auth">Войти</a>
+                </div>
+            </div>
+            <div class="big_img__title">Попробуйте EasyAuth уже сегодня с 30 дневным пробным периодом.</div>
+            <div class="big_img__text">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum dolor doloribus
+                veniam autem, quis assumenda et atque magnam velit rem minus quasi, eum iure libero deleniti sequi
+                obcaecati ad odio.
+            </div>
+            <div class="main_buttom">
+                <div class="main_bottom_choose checkbox-wrapper">
+                    <label class="main_bottom_choose__margin">
+                        <input type="radio" name="person" class="modern-radio" value="1" checked>
+                        <span></span>
+                        Хочу себе на сайт
+                    </label>
+                    <label>
+                        <input type="radio" name="person" class="modern-radio" value="2">
+                        <span></span>
+                        Хочу легко входить на сайты
+                    </label>
+                </div>
+                <a href="#" class="main_buttom_click">ПОПРОБОВАТЬ</a>
+            </div>
+            <div class="main_buttom_line"></div>
+        </section>
+        <section class="section main_block2">
+            <div class="center main_block2__flex">
+                <div class="main_block2__left">
+                    <h3 class="main_title">О веб-приложении</h3>
+                    <div class="main_text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio cumque,
+                        consequatur inventore qui, libero mollitia illo autem animi optio repellat nam ipsa magni
+                        temporibus
+                        aliquid quas dolorum dignissimos? Nobis, pariatur. Lorem ipsum dolor sit amet consectetur
+                        adipisicing elit. Distinctio cumque,
+                        consequatur inventore qui, libero mollitia illo autem animi optio repellat nam ipsa magni
+                        temporibus
+                        aliquid quas dolorum dignissimos? Nobis, pariatur.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio cumque,
+                        consequatur inventore qui, libero mollitia illo autem animi optio repellat nam ipsa magni
+                        temporibus
+                        <br>
+                        <br>
+                        aliquid quas dolorum dignissimos? Nobis, pariatur.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio cumque,
+                        consequatur inventore qui, libero mollitia illo autem animi optio repellat nam ipsa magni
+                        temporibus
+                        aliquid quas dolorum dignissimos? Nobis, pariatur.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio cumque,
+                        consequatur inventore qui, libero mollitia illo autem animi optio repellat nam ipsa magni
+                        temporibus
+                        aliquid quas dolorum dignissimos? Nobis, pariatur.
+                        <br>
+                        <br>
+                        aliquid quas dolorum dignissimos? Nobis, pariatur.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio cumque,
+                        consequatur inventore qui, libero mollitia illo autem animi optio repellat nam ipsa magni
+                        temporibus
+                        aliquid quas dolorum dignissimos? Nobis, pariatur.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio cumque,
+                        consequatur inventore qui, libero mollitia illo autem animi optio repellat nam ipsa magni
+                        temporibus
+                        aliquid quas dolorum dignissimos? Nobis, pariatur.
+                    </div>
+                </div>
+                <div class="main_block2__right">
+                    <img src="{% static 'img/auth2.png'%}" class="main_block2__img" alt="auth1">
+                    <img src="{% static 'img/auth1.png'%}" class="main_block2__img" alt="auth2">
+                </div>
+            </div>
+        </section>
+        <section class="section main_block3">
+            <div class="center">
+                <h3 class="main_block3_title">Как это работает</h3>
+                <div class="center">
+                    <div class="how_left">
+                        <div class="how_left__figure">
+                            <div class="dot"></div>
+                            <div class="line"></div>
+                            <div class="dot"></div>
+                            <div class="line"></div>
+                            <div class="dot"></div>
+                        </div>
+                        <div class="how_left__text"></div>
+                    </div>
+                    <div class="how_right"></div>
+                </div>
+            </div>
+        </section>
+        <section class="section main_block4">
+            <div class="center">
+                <h3 class="main_block4_title">Тарифы</h3>
+                <div class="rates">
+                    <div class="rates_item">
+                        <h3>Тариф 1</h3>
+                        <h4>Вы получаете:</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo deleniti ipsam unde sint
+                            illum deserunt in vitae officiis culpa eveniet voluptatibus, eum aspernatur repudiandae
+                            magni quia ipsum? Odio, dolorem perspiciatis!
+                        </p>
+                        <ul>
+                            <li>1 пункт</li>
+                            <li>2 пункт</li>
+                            <li>3 пункт</li>
+                        </ul>
+                        <div class="rates_item__price">123 000 P</div>
+                    </div>
+                    <div class="rates_item">
+                        <h3>Тариф 2</h3>
+                        <h4>Вы получаете:</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo deleniti ipsam unde sint
+                            illum deserunt in vitae officiis culpa eveniet voluptatibus, eum aspernatur repudiandae
+                            magni quia ipsum? Odio, dolorem perspiciatis!
+                        </p>
+                        <ul>
+                            <li>1 пункт</li>
+                            <li>2 пункт</li>
+                            <li>3 пункт</li>
+                        </ul>
+                        <div class="rates_item__price">123 000 P</div>
+                    </div>
+                    <div class="rates_item">
+                        <h3>Тариф 3</h3>
+                        <h4>Вы получаете:</h4>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo deleniti ipsam unde sint
+                            illum deserunt in vitae officiis culpa eveniet voluptatibus, eum aspernatur repudiandae
+                            magni quia ipsum? Odio, dolorem perspiciatis!
+                        </p>
+                        <ul>
+                            <li>1 пункт</li>
+                            <li>2 пункт</li>
+                            <li>3 пункт</li>
+                        </ul>
+                        <div class="rates_item__price">123 000 P</div>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <div class="footer_left">
+                    <a class="header_top" href="/">
+                        <img src="{% static 'img/favicon.png'%}" alt="logo">
+                        <div class="logo">EasyAuth</div>
+                    </a>
+                </div>
+                <div class="footer_midl">
+                    Томск, 2023г.
+                </div>
+                <a class="footer_right" href="#block1">Наверх</a>
+            </footer>
+        </section>
+    </main>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block content %}
+<div class="content_login">
+        <div class="content">
+            <header class="header">
+                <div class="header_left">
+                    <a class="header_top" href="/">
+                        <img src="{% static 'img/favicon.png'%}" alt="logo">
+                        <div class="logo">EasyAuth</div>
+                    </a>
+                </div>
+                <nav class="header_midl">
+                    <a href="/#block2" class="header_midl__item">О веб-приложении</a>
+                    <a href="/#block3" class="header_midl__item">Как это работает</a>
+                    <a href="/#block4" class="header_midl__item">Тарифы</a>
+                </nav>
+            </header>
+            <main>
+                {% if user.is_authenticated %}
+                   <p>Вы уже выполнили вход.</p>
+               {% else %}
+
+                <div class="position_center">
+                    <img class="mainimg" src="{% static 'img/imgonline-com-ua-Replace-color-r5iK5mPNXCb2.jpg' %}"
+                         alt="mainimg">
+                    <form class="auth_main" method="POST">
+                       {% csrf_token %}
+                        <div class="login_title">Вход</div>
+<!--                        {% if form.errors%}-->
+<!--                        <div class="errors_all">Пожалуйста, введите правильные имя пользователя и пароль.-->
+<!--                            Оба поля могут быть чувствительны к регистру.</div>-->
+<!--                        {%endif%}-->
+                        <label for="login">
+                            <input type="text" class="auth_main__input auth_main__input--up" name="username"
+                                placeholder="Логин">
+                            {% if form.errors.username %}
+                            <div class="username_errors">{{form.errors.username}}</div>
+                            {%endif%}
+                        </label>
+                        <label for="password">
+                            <input type="password" class="auth_main__input auth_main__input--down" name="password"
+                                placeholder="Пароль">
+                            {% if form.errors.password %}
+                            <div class="username_errors">{{form.errors.password}}</div>
+                            {%endif%}
+                            <button></button>
+                        </label>
+                        <div class="form_udertext">Нет аккаунта? <a href="#">Зарегистрироваться</a></div>
+                    </form>
+                    <div class="clear"></div>
+                </div>
+                   {% endif %}
+            </main>
+        </div>
+        <footer class="footer">
+            <div class="footer_left">
+                <a class="header_top" href="/">
+                    <img src="{% static 'img/favicon.png'%}" alt="logo">
+                    <div class="logo">EasyAuth</div>
+                </a>
+            </div>
+            <div class="footer_midl">
+                Томск, 2023г.
+            </div>
+            <a class="footer_right"></a>
+        </footer>
+    </div>
+{% endblock %}
