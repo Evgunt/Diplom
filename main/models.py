@@ -6,7 +6,8 @@ from django.contrib.auth.models import AbstractUser
 
 class AdvUser(AbstractUser):
     phone = models.CharField(default="", max_length=300, verbose_name='Телефон')
-    key = models.CharField(default="", max_length=300)
+    midl_name = models.CharField(default="", max_length=300, verbose_name='Отчество')
+    dateBorn = models.CharField(default="", max_length=300, verbose_name='Дата рождения')
 
     class Meta(AbstractUser.Meta):
         pass
