@@ -990,4 +990,70 @@ footer {
     box-shadow: 0px 0px 5px 3px rgba(34, 60, 80, 0.25);
 }
 
+.profile_info {
+    width: 500px;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.profile_info__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.profile_info__link {
+    width: 235px;
+    background-color: inherit;
+    padding: 6px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border: 3px solid #1b1d24;
+    height: 40px;
+    line-height: 25px;
+}
+
+.profile_info__submit {
+    color: #fff;
+    padding: 8px 20px;
+    background-color: #c69d5b;
+    border: 0;
+    font-weight: 500;
+    font-size: 19px;
+    cursor: pointer;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    -webkit-text-shadow: 3px 1px 7px rgba(47, 47, 47, 0.5);
+    -moz-text-shadow: 3px 1px 7px rgba(47, 47, 47, 0.5);
+    text-shadow: 3px 1px 7px rgb(47 47 47 / 50%);
+    border: 3px solid #c69d5b;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    margin: 0 auto;
+    display: block;
+    margin-top: 40px;
+    width: 127px;
+    text-decoration: none;
+}
+
+.profile_info__submit:hover {
+    background-color: #1b1d24;
+    border: 3px solid #c69d5b;
+    -webkit-box-shadow: 0px 0px 5px 3px rgb(34 60 80 / 25%);
+    -moz-box-shadow: 0px 0px 5px 3px rgba(34, 60, 80, 0.25);
+    box-shadow: 0px 0px 5px 3px rgb(34 60 80 / 25%);
+}
+
+
 /* Конец страницы личного кабинета*/

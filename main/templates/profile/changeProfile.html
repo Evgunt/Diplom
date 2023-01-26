@@ -1,0 +1,58 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block content %}
+<main class="personal">
+        <div class="menu_person">
+            <img src="{% static 'img/user.png'%}" alt="profile" class="profile_img">
+            <div class="profile_name">Evan Gunter</div>
+            <nav>
+                <a href="{% url 'main:profile'%}" class="menu--active">Личные данные</a>
+                <a href="#">Мои подписки</a>
+                <a href="{% url 'main:changepass' pk=user.pk%}">Смена пароля</a>
+                <a href="#">Обязательства</a>
+                <a href="{% url 'main:logout'%}">Выход</a>
+            </nav>
+        </div>
+        <section class="person_center">
+            <h3 class="person_title">Изменение личных данных</h3>
+            <form method="POST" class="person_form">
+                       {% csrf_token %}
+                <label class="label_form">
+                    <span>Логин</span>
+                    <input type="text" placeholder="Login" class="person_input" name="username"
+                           value="{{form.username.value}}">
+                </label>
+                <label class="label_form">
+                    <span>Фамилия</span>
+                    <input type="text" placeholder="Иванов" class="person_input" name="last_name"
+                           value="{{form.last_name.value}}">
+                </label>
+                <label class="label_form">
+                    <span>Имя</span>
+                    <input type="text" placeholder="Иван" class="person_input" name="first_name"
+                           value="{{form.first_name.value}}">
+                </label>
+                <label class="label_form">
+                    <span>Отчество</span>
+                    <input type="text" placeholder="Иванович" class="person_input" name="midl_name"
+                           value="{{form.midl_name.value}}">
+                </label>
+                <label class="label_form">
+                    <span>Эл. почта (Email)</span>
+                    <input type="email" placeholder="Email@admin.ru" class="person_input" name="email"
+                           value="{{form.email.value}}">
+                </label>
+                <label class="label_form">
+                    <span>Телефон</span>
+                    <input type="text" placeholder="Телефон" class="person_input phone_mask" name="phone"
+                           value="{{form.phone.value}}">
+                </label>
+                <label class="label_form">
+                    <span>Дата рождения</span>
+                    <input type="date" class="person_input" name="dateBorn" value="{{form.dateBorn.value}}">
+                </label>
+                <input type="submit" value="Редактировать" class="change_form_submit">
+            </form>
+        </section>
+    </main>
+{% endblock %}

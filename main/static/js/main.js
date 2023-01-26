@@ -8,4 +8,6 @@ $(document).ready(function () {
             scrollingSpeed: 1000
         });
     }
+    if($('.phone_mask').length > 0)
+        $(".phone_mask").mask("+7 (999) 999-99-99");
 });

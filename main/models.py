@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class AdvUser(AbstractUser):
-    phone = models.CharField(default="", max_length=300, verbose_name='Телефон')
+    phone = models.CharField(default="", max_length=300, verbose_name='Телефон', blank=True)
     midl_name = models.CharField(default="", max_length=300, verbose_name='Отчество')
     dateBorn = models.CharField(default="", max_length=300, verbose_name='Дата рождения')
 

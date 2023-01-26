@@ -7,6 +7,7 @@ from .models import AdvUser
 
 class RegisterUserForm(forms.ModelForm):
     midl_name = forms.CharField()
+    phone = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput)
     dateBorn = forms.CharField()
@@ -41,3 +42,20 @@ class RegisterUserForm(forms.ModelForm):
         model = AdvUser
         fields = ('username', 'password', 'password2', 'first_name', 'email', 'last_name', 'midl_name',
                   'dateBorn')
+
+
+class ChangeUserForm(forms.ModelForm):
+    midl_name = forms.CharField()
+    phone = forms.CharField()
+    dateBorn = forms.CharField()
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.date = datetime.now()
+        if commit:
+            user.save()
+        return user
+
+    class Meta:
+        model = AdvUser
+        fields = ('username', 'first_name', 'email', 'last_name', 'midl_name', 'dateBorn', 'phone')
