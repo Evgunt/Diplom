@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, UpdateView, TemplateView
-from . import models, forms
+from . import models, forms, utilities
 
 
 def index(request):
@@ -41,6 +41,7 @@ class Profile(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = models.AdvUser.objects.get(pk=self.request.user.pk)
+        user = utilities.decode(user)
         user.dateBorn = self.dateFormat(user.dateBorn)
         context['info'] = user
         return context
@@ -63,7 +64,9 @@ class ChangeUser(UpdateView, LoginRequiredMixin):
         if not queryset:
             queryset = self.get_queryset()
         pk = self.kwargs.get('pk')
-        return get_object_or_404(queryset, pk=pk)
+        user = get_object_or_404(queryset, pk=pk)
+        user = utilities.decode(user)
+        return user
 
 
 class ChangePass(LoginRequiredMixin, PasswordChangeView):

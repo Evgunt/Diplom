@@ -21,6 +21,7 @@
                     <form class="reg_form" method="POST">
                         <div class="reg__title">Регистрация</div>
                        {% csrf_token %}
+                        {{form.errors}}
                         <div class="input_left">
                             <label>
                                 <input type="text" name="last_name" placeholder="Фамилия">
