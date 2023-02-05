@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -74,4 +75,40 @@ class ChangePass(LoginRequiredMixin, PasswordChangeView):
     success_url = '/profile'
     login_url = '/login'
 
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            user = models.AdvUser.objects.get(pk=request.user.pk)
+            newUser = utilities.decode(user)
+            newUser.set_password(request.POST['new_password1'])
+            newUser = utilities.encode(newUser)
+            newUser.save()
+        return render(request, 'profile/changePass.html')
+
+
+def fogot_password_form(request):
+    if request.user.is_authenticated:
+        return redirect('/profile')
+    else:
+        context = {'display': 'none'}
+        if request.method == "POST":
+            username = request.POST['username']
+            if models.AdvUser.objects.filter(username=username).exists():
+                user = models.AdvUser.objects.get(username=username)
+                utilities.send_password_notification(user)
+                context['mail'] = "Проверьте почту"
+                context['display'] = 'block'
+            else:
+                context['errors'] = "Введен неверный логин"
+        return render(request, 'auth/password_email_form.html', context)
+
+
+def password_email(request, sign):
+    username = utilities.signer.unsign(sign)
+    user = get_object_or_404(models.AdvUser, username=username)
+    password = utilities.generate_password()
+    user.set_password(password)
+    user.save()
+    context = {'user': username, 'password': password}
+    return render(request, 'auth/password_change_email.html', context)
 

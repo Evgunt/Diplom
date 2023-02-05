@@ -17,15 +17,19 @@
         <h3 class="person_title">Смена пароля</h3>
         <form method="POST" class="person_form">
                    {% csrf_token %}
+             <label class="label_form">
+                <span>Старый пароль</span>
+                <input type="password" placeholder="Old password" class="person_input" name="old_password">
+            </label>
             <label class="label_form">
                 <span>Новый пароль</span>
-                <input type="password" placeholder="Password" class="person_input" name="password">
+                <input type="password" placeholder="New password" class="person_input" name="new_password1">
             </label>
             <label class="label_form">
                 <span>Повторите новый пароль</span>
-                <input type="password" placeholder="Password" class="person_input" name="password2">
+                <input type="password" placeholder="Repeat new password" class="person_input" name="new_password2">
             </label>
-            <input type="submit" value="Сохранить пароль" class="change_form_submit">
+         <input type="submit" value="Сохранить пароль" class="change_form_submit">
         </form>
     </section>
 </main>

@@ -1,85 +1,55 @@
-{% extends "basic.html" %}
+{% extends "authbasic.html" %}
 {% load static %}
 {% block content %}
- <div class="regist_main">
-        <div class="content">
-            <header class="header">
-                <div class="header_left">
-                    <a class="header_top" href="/">
-                        <img src="{% static 'img/favicon.png'%}" alt="logo">
-                        <div class="logo">EasyAuth</div>
-                    </a>
-                </div>
-                <nav class="header_midl">
-                    <a href="/#block2" class="header_midl__item">О веб-приложении</a>
-                    <a href="/#block3" class="header_midl__item">Как это работает</a>
-                    <a href="/#block4" class="header_midl__item">Тарифы</a>
-                </nav>
-            </header>
-            <main>
-                <div class="center_registration">
-                    <form class="reg_form" method="POST">
-                        <div class="reg__title">Регистрация</div>
-                       {% csrf_token %}
-                        {{form.errors}}
-                        <div class="input_left">
-                            <label>
-                                <input type="text" name="last_name" placeholder="Фамилия">
-                                <div class="help_text">{{form.errors.last_name}}</div>
-                            </label>
-                            <label>
-                                <input type="text" name="first_name" placeholder="Имя">
-                                <div class="help_text">{{form.errors.first_name}}</div>
-                            </label>
-                        </div>
-                        <label>
-                            <input type="text" name="midl_name" placeholder="Отчество">
-                                <div class="help_text">{{form.errors.midl_name}}</div>
-                        </label>
-                        <div class="input_left">
-                            <label>
-                                <input type="text" name="username" placeholder="Ваш логин">
-                                <div class="help_text">{{form.errors.username}}</div>
-                            </label>
-                            <label class="up">
-                                <span>Дата рождения:</span>
-                                <input type="date" name="dateBorn" placeholder="Дата рождения">
-                                <div class="help_text">{{form.errors.dateBorn}}</div>
-                            </label>
-                        </div>
-                        <label>
-                            <input type="email" name="email" placeholder="Эл. почта (Email)">
-                                <div class="help_text">{{form.errors.email}}</div>
-                        </label>
-
-                        <div class="input_left">
-                            <label>
-                                <input type="password" name="password" placeholder="Пароль">
-                                <div class="help_text">{{form.errors.password}}</div>
-                            </label>
-                            <label>
-                                <input type="password" name="password2" placeholder="Повторите пароль">
-                                <div class="help_text">{{form.errors.password2}}</div>
-                            </label>
-                        </div>
-                        <input type="submit" value="Зарегистрироваться">
-                        <div class="form_udertext_reg">Уже зарегистрированы? <a href="/login">Войти в аккаунт</a></div>
-                    </form>
-                    <div class="clear"></div>
-                </div>
-            </main>
+<div class="center_registration">
+    <form class="reg_form" method="POST">
+        <div class="reg__title">Регистрация</div>
+       {% csrf_token %}
+        {{form.errors}}
+        <div class="input_left">
+            <label>
+                <input type="text" name="last_name" placeholder="Фамилия">
+                <div class="help_text">{{form.errors.last_name}}</div>
+            </label>
+            <label>
+                <input type="text" name="first_name" placeholder="Имя">
+                <div class="help_text">{{form.errors.first_name}}</div>
+            </label>
         </div>
-        <footer class="footer">
-            <div class="footer_left">
-                <a class="header_top" href="/">
-                    <img src="{% static 'img/favicon.png'%}" alt="logo">
-                    <div class="logo">EasyAuth</div>
-                </a>
-            </div>
-            <div class="footer_midl">
-                Томск, 2023г.
-            </div>
-            <a class="footer_right"></a>
-        </footer>
-    </div>
+        <label>
+            <input type="text" name="midl_name" placeholder="Отчество">
+                <div class="help_text">{{form.errors.midl_name}}</div>
+        </label>
+        <div class="input_left">
+            <label>
+                <input type="text" name="username" placeholder="Ваш логин">
+                <div class="help_text">{{form.errors.username}}</div>
+            </label>
+            <label class="up">
+                <span>Дата рождения:</span>
+                <input type="date" name="dateBorn" placeholder="Дата рождения">
+                <div class="help_text">{{form.errors.dateBorn}}</div>
+            </label>
+        </div>
+        <label>
+            <input type="email" name="email" placeholder="Эл. почта (Email)">
+                <div class="help_text">{{form.errors.email}}</div>
+        </label>
+
+        <div class="input_left">
+            <label>
+                <input type="password" name="password" placeholder="Пароль">
+                <div class="help_text">{{form.errors.password}}</div>
+            </label>
+            <label>
+                <input type="password" name="password2" placeholder="Повторите пароль">
+                <div class="help_text">{{form.errors.password2}}</div>
+            </label>
+        </div>
+        <input type="submit" value="Зарегистрироваться">
+        <div class="form_udertext_reg">Уже зарегистрированы? <a href="/login">Войти в аккаунт</a></div>
+    </form>
+    <div class="clear"></div>
+</div>
+
 {% endblock %}
