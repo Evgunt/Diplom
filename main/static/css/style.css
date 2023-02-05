@@ -860,13 +860,29 @@ footer {
 
 /* Конец странницы регистрации*/
 
-/* восстановление пароля*/
+/* Восстановление пароля*/
+.fogot_main__input {
+    display: block;
+    padding: 8px 15px;
+    border: 2px solid #c69d5b;
+    border-radius: 10px;
+    background: inherit;
+    width: 215px;
+    margin: 0 auto;
+    font-weight: 600;
+    font-size: 20px;
+    color: #c69d5b;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
 
 .fogot_form_input {
-    padding: 10px 5px;
+    padding: 10px 20px;
     display: block;
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 10px;
     font-weight: 500;
     font-size: 20px;
     width: 215px;
@@ -892,6 +908,80 @@ footer {
     -webkit-text-shadow: 3px 1px 7px rgba(47, 47, 47, 0.5);
     -moz-text-shadow: 3px 1px 7px rgba(47, 47, 47, 0.5);
     text-shadow: 3px 1px 7px rgba(47, 47, 47, 0.5);
+}
+
+.password_success {
+    padding: 50px 100px;
+}
+
+.password_success .title {
+    font-weight: 600;
+    font-size: 32px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.password_success .title:after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40%;
+    height: 2px;
+    background-color: #1b1d24;
+}
+
+.password_success .new_pass {
+    font-weight: 500;
+    font-size: 23px;
+}
+
+.password_success .new_pass span {
+    font-weight: 600;
+    font-style: italic;
+    color: #c69d5b;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+}
+
+.password_success .new_pass span:hover {
+    font-size: 25px;
+}
+
+.password_success .help_pass {
+    margin-top: 5px;
+    font-weight: 400;
+    font-size: 18px;
+    font-style: italic;
+}
+
+.password_success__submit {
+    padding: 8px 15px;
+    color: #1b1d24;
+    background-color: #c69d5b;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+    width: 191px;
+    margin-top: 35px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+}
+
+.password_success__submit:hover {
+    margin-top: 30px;
 }
 
 /*Конец*/

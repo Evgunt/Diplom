@@ -90,14 +90,13 @@ def fogot_password_form(request):
     if request.user.is_authenticated:
         return redirect('/profile')
     else:
-        context = {'display': 'none'}
+        context = {}
         if request.method == "POST":
             username = request.POST['username']
             if models.AdvUser.objects.filter(username=username).exists():
                 user = models.AdvUser.objects.get(username=username)
                 utilities.send_password_notification(user)
-                context['mail'] = "Проверьте почту"
-                context['display'] = 'block'
+                context['errors'] = "Проверьте почту"
             else:
                 context['errors'] = "Введен неверный логин"
         return render(request, 'auth/password_email_form.html', context)
