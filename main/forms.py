@@ -11,6 +11,7 @@ class RegisterUserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput)
     dateBorn = forms.CharField()
+    job = forms.CharField()
 
     def clean_password1(self):
         password = self.cleaned_data['password']
@@ -34,15 +35,15 @@ class RegisterUserForm(forms.ModelForm):
         user = super().save(commit=False)
         user.date = datetime.now()
         user.set_password(self.cleaned_data['password'])
-        newdate = utilities.encode(user)
+        # newdate = utilities.encode(user)
         if commit:
-            newdate.save()
-        return newdate
+            user.save()
+        return user
 
     class Meta:
         model = AdvUser
         fields = ('username', 'password', 'password2', 'first_name', 'email', 'last_name', 'midl_name',
-                  'dateBorn')
+                  'dateBorn', 'job')
 
 
 class ChangeUserForm(forms.ModelForm):
@@ -53,10 +54,10 @@ class ChangeUserForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.date = datetime.now()
-        newdate = utilities.encode(user)
+        # newdate = utilities.encode(user)
         if commit:
-            newdate.save()
-        return newdate
+            user.save()
+        return user
 
     class Meta:
         model = AdvUser

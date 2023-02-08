@@ -3,7 +3,7 @@
 {% block content %}
 <div class="center_registration">
     <form class="reg_form" method="POST">
-        <div class="reg__title">Регистрация</div>
+        <div class="reg__title">Добавление нового сотрудника</div>
        {% csrf_token %}
         {{form.errors}}
         <div class="input_left">
@@ -22,7 +22,7 @@
         </label>
         <div class="input_left">
             <label>
-                <input type="text" name="username" placeholder="Ваш логин">
+                <input type="text" name="username" placeholder="Логин">
                 <div class="help_text">{{form.errors.username}}</div>
             </label>
             <label class="up">
@@ -46,8 +46,12 @@
                 <div class="help_text">{{form.errors.password2}}</div>
             </label>
         </div>
-        <input type="submit" value="Зарегистрироваться">
-        <div class="form_udertext_reg">Уже зарегистрированы? <a href="/login">Войти в аккаунт</a></div>
+        <label>
+            <input class="input_long" type="text" name="job" placeholder="Должность">
+            <div class="help_text">{{form.errors.job}}</div>
+        </label>
+        <input type="submit" value="Зарегистрировать">
+<!--        <div class="form_udertext_reg">Уже зарегистрированы? <a href="{%url 'main:login'%}">Войти в аккаунт</a></div>-->
     </form>
     <div class="clear"></div>
 </div>

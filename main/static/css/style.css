@@ -20,31 +20,10 @@ main {
     background-color: #1b1d24;
     height: 80px;
     width: 100%;
-    padding: 24px 70px;
+    padding: 15px 70px;
     color: #fff;
     display: flex;
     justify-content: space-between;
-}
-
-.header_midl__item {
-    font-weight: 500;
-    color: #fff;
-    font-size: 20px;
-    margin-right: 15px;
-    text-decoration: none;
-    position: relative;
-}
-
-.header_midl__item:nth-last-child(1) {
-    margin-right: 0px;
-}
-
-.header_right a {
-    font-size: 20px;
-    font-weight: 400;
-    margin-right: 10px;
-    text-decoration: none;
-    color: #fff;
 }
 
 .reg {
@@ -76,13 +55,24 @@ main {
     float: left;
     margin-right: 15px;
     display: block;
+    width: 50px;
 }
 
 .logo {
     color: #fff;
     font-weight: 600;
     font-size: 25px;
+}
+
+.header_top__text {
     float: left;
+}
+
+.logo_underText {
+    color: #c69d5b;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
 }
 
 .big_img {
@@ -363,7 +353,7 @@ footer {
     width: 100%;
     height: 80px;
     background-color: #1b1d24;
-    padding: 24px 70px;
+    padding: 15px 70px;
     color: #fff;
     position: absolute;
     bottom: 0;
@@ -410,6 +400,7 @@ footer {
     font-weight: 400;
     text-align: right;
     text-decoration: none;
+    margin-top: 11px;
 }
 
 .rates {
@@ -674,14 +665,9 @@ footer {
     margin-top: 25px;
 }
 
-.form_udertext a {
-    text-decoration: none;
+.form_udertext span {
     color: #c69d5b;
     display: block;
-}
-
-.form_udertext a:hover {
-    text-decoration: underline;
 }
 
 /* Конец страницы входа*/
@@ -725,6 +711,10 @@ footer {
     padding: 30px 40px;
     color: #c69d5b;
     background-color: #1b1d24;
+}
+
+.reg_form .input_long {
+    width: calc(100% - 5px);
 }
 
 .reg_form input {
@@ -803,6 +793,7 @@ footer {
 .input_left {
     display: flex;
 }
+
 
 .change_form_submit {
     color: #fff;

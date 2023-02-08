@@ -1,8 +1,9 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EasyAuth</title>
@@ -19,43 +20,45 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.js"
-            type="text/javascript"></script>
-
-    <script src="{% static 'js/jquery.fullPage.min.js' %}" type="text/javascript"></script>
+        type="text/javascript"></script>
     <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
 </head>
+
 <body>
     <div class="content_login">
         <div class="content">
             <header class="header">
-                <div class="header_left">
-                    <a class="header_top" href="/">
-                        <img src="{% static 'img/favicon.png'%}" alt="logo">
-                        <div class="logo">EasyAuth</div>
-                    </a>
-                </div>
-                <nav class="header_midl">
-                    <a href="/#block2" class="header_midl__item">О веб-приложении</a>
-                    <a href="/#block3" class="header_midl__item">Как это работает</a>
-                    <a href="/#block4" class="header_midl__item">Тарифы</a>
-                </nav>
+                <a class="header_top" href="/">
+                    <img src="{% static 'img/favicon.png'%}" alt="logo">
+                    <div class="header_top__text">
+                        <div class="logo">CopyFile</div>
+                        <div class="logo_underText">Файловая система</div>
+                    </div>
+                </a>
+                <!--                <nav class="header_midl">-->
+                <!--                    <a href="/#block2" class="header_midl__item">О веб-приложении</a>-->
+                <!--                    <a href="/#block3" class="header_midl__item">Как это работает</a>-->
+                <!--                    <a href="/#block4" class="header_midl__item">Тарифы</a>-->
+                <!--                </nav>-->
             </header>
             <main>
                 {% block content %}{% endblock %}
             </main>
         </div>
-        <footer class="footer">
-            <div class="footer_left">
-                <a class="header_top" href="/">
-                    <img src="{% static 'img/favicon.png'%}" alt="logo">
-                    <div class="logo">EasyAuth</div>
-                </a>
-            </div>
-            <div class="footer_midl">
-                Томск, 2023г.
-            </div>
-            <a class="footer_right"></a>
-        </footer>
+<!--        <footer class="footer">-->
+<!--            <div class="footer_left">-->
+<!--                <a class="header_top" href="/">-->
+<!--                    <img src="{% static 'img/favicon.png'%}" alt="logo">-->
+<!--                    <div class="header_top__text">-->
+<!--                        <div class="logo">CopyFile</div>-->
+<!--                        <div class="logo_underText">Файловая система</div>-->
+<!--                    </div>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--            <a class="footer_right">-->
+<!--                Томск, 2023г.</a>-->
+<!--        </footer>-->
     </div>
 </body>
+
 </html>
