@@ -6,10 +6,10 @@
             <img src="{% static 'img/user.png'%}" alt="profile" class="profile_img">
             <div class="profile_name">Evan Gunter</div>
             <nav>
+                <a href="{% url 'main:mydocs'%}">Мои документы</a>
+                <a href="#">Общие документы</a>
                 <a href="{% url 'main:profile'%}" class="menu--active">Личные данные</a>
-                <a href="#">Мои подписки</a>
                 <a href="{% url 'main:changepass' pk=user.pk%}">Смена пароля</a>
-                <a href="#">Обязательства</a>
                 <a href="{% url 'main:logout'%}">Выход</a>
             </nav>
         </div>

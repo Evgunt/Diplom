@@ -1,0 +1,55 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block content %}
+<main class="personal">
+    <div class="menu_person">
+        <img src="{% static 'img/user.png'%}" alt="profile" class="profile_img">
+        <div class="profile_name">Evan Gunter</div>
+        <nav>
+            <a href="{% url 'main:mydocs'%}" class="menu--active">Мои документы</a>
+            <a href="#">Общие документы</a>
+            <a href="{% url 'main:profile'%}">Личные данные</a>
+            <a href="{% url 'main:changepass' pk=user.pk%}">Смена пароля</a>
+            <a href="{% url 'main:logout'%}">Выход</a>
+        </nav>
+    </div>
+    <section class="person_center">
+        <h3 class="person_title">Мои документы</h3>
+        <a href="{%url 'main:docsadd'%}" class="button_add_docs">Добавить документ</a>
+        <table>
+            <thead>
+                <tr class="row">
+                    <th class="cell">Название</th>
+                    <th class="cell">Дата добавления</th>
+                    <!-- <th class="cell">Владелец</th> -->
+                    <th class="cell">Комментарий</th>
+                    <th class="cell">Расширение</th>
+                    <th class="cell">Опции</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if info %}
+                {% for inf in info %}
+                <tr class="row">
+                    <td class="cell">{{inf.name}}</td>
+                    <td class="cell">{{inf.date}}</td>
+                    <!-- <td class="cell">{{inf.owner}}</td> -->
+                    <td class="cell">
+                        <div class="comments">{{inf.comments}}</div>
+                    </td>
+                    <td class="cell">{{inf.extension}}</td>
+                    <td class="cell">
+                        <a href="{{inf.docs}}">
+                            <div class="icons_download"></div>
+                        </a>
+                        <div class="icons_edit"></div>
+                        <div class="icons_delete"></div>
+                    </td>
+                </tr>
+                {% endfor %}
+                {%endif%}
+            </tbody>
+        </table>
+    </section>
+</main>
+{% endblock %}

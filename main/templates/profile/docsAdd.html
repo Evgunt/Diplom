@@ -1,0 +1,21 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block content %}
+<main class="personal">
+    <div class="menu_person">
+        <img src="{% static 'img/user.png'%}" alt="profile" class="profile_img">
+        <div class="profile_name">Evan Gunter</div>
+        <nav>
+            <a href="{% url 'main:mydocs'%}">Мои документы</a>
+            <a href="#">Общие документы</a>
+            <a href="{% url 'main:profile'%}">Личные данные</a>
+            <a href="{% url 'main:changepass' pk=user.pk%}">Смена пароля</a>
+            <a href="{% url 'main:logout'%}">Выход</a>
+        </nav>
+    </div>
+    <section class="person_center">
+        <h3 class="person_title">Добавление документа</h3>
+        {{form}}
+    </section>
+</main>
+{% endblock %}

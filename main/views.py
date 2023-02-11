@@ -28,6 +28,13 @@ class Registration(CreateView):
     success_url = '/'
 
 
+class DocsAdd(LoginRequiredMixin, CreateView):
+    model = models.DocsFile
+    template_name = 'profile/docsAdd.html'
+    form_class = forms.DocsAddForm
+    success_url = '/'
+
+
 class Profile(LoginRequiredMixin, TemplateView):
     template_name = 'profile/profile.html'
     login_url = '/'
@@ -61,6 +68,24 @@ class ChangeUser(UpdateView, LoginRequiredMixin):
         user = get_object_or_404(queryset, pk=pk)
         # user = utilities.decode(user)
         return user
+
+
+class mydocs(LoginRequiredMixin, TemplateView):
+    template_name = 'profile/mydocs.html'
+    login_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if models.DocsFile.objects.filter(owner=self.request.user.username).exists():
+            userDocs = models.DocsFile.objects.filter(owner=self.request.user.username)
+            context['info'] = userDocs
+        return context
+
+    def dateFormat(self, date):
+        newdate = date.split('-')
+        new = newdate[2] + '.' + newdate[1] + '.' + newdate[0]
+        return new
 
 
 class ChangePass(LoginRequiredMixin, PasswordChangeView):

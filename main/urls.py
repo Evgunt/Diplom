@@ -10,7 +10,10 @@ urlpatterns = [
    path('profile', views.Profile.as_view(), name='profile'),
    path('changeprofile/<int:pk>', views.ChangeUser.as_view(), name='changeprofile'),
    path('registration', views.Registration.as_view(), name='registration'),
+   path('docsadd', views.DocsAdd.as_view(), name='docsadd'),
    path('changepass/<int:pk>', views.ChangePass.as_view(), name='changepass'),
+   path('mydocs', views.mydocs.as_view(), name='mydocs'),
+
    # path('fogotpassword', views.fogot_password_form, name='fogotpasswordform'),
    # path('passwordemail/<str:sign>', views.password_email, name='password_email'),
 ]
