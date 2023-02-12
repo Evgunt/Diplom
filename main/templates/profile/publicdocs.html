@@ -6,8 +6,8 @@
         <img src="{% static 'img/user.png'%}" alt="profile" class="profile_img">
         <div class="profile_name">Evan Gunter</div>
         <nav>
-            <a href="{% url 'main:mydocs'%}" class="menu--active">Мои документы</a>
-            <a href="{% url 'main:publicdocs'%}">Общие документы</a>
+            <a href="{% url 'main:mydocs'%}">Мои документы</a>
+            <a href="{% url 'main:publicdocs'%}" class="menu--active">Общие документы</a>
             {%if request.user.is_staff%}
             <a href="{% url 'main:registration'%}">Новый сотрудник</a>
             {%endif%}
@@ -19,7 +19,7 @@
     <section class="person_center">
         <h3 class="person_title">Мои документы</h3>
         <div class="filter_wrapper">
-            <a href="{% url 'main:docsadd' %}" class="button_add_docs">Добавить документ</a>
+            <div class="empty"></div>
             <div class="filter">
                 {% if request.GET.filter == 'name'%}
                 <a href="{% url 'main:mydocs'%}?filter=name" class="filter--active">По имени</a>
@@ -46,10 +46,10 @@
                 <tr class="row">
                     <th class="cell">Название</th>
                     <th class="cell">Дата добавления</th>
-                    <!-- <th class="cell">Владелец</th> -->
+                     <th class="cell">Владелец</th>
                     <th class="cell">Комментарий</th>
                     <th class="cell">Расширение</th>
-                    <th class="cell">Опции</th>
+                    <th class="cell">Скачать</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +57,7 @@
                 <tr class="row">
                     <td class="cell">{{inf.name}}</td>
                     <td class="cell">{{inf.date}}</td>
-                    <!-- <td class="cell">{{inf.owner}}</td> -->
+                     <td class="cell">{{inf.owner}}</td>
                     <td class="cell">
                         <div class="comments">{{inf.comments}}</div>
                     </td>
@@ -65,12 +65,6 @@
                     <td class="cell">
                         <a href="/media/{{inf.docs}}" target="_blank">
                             <div class="icons_download"></div>
-                        </a>
-                        <a href="{% url 'main:docsedit' pk=inf.pk%}">
-                            <div class="icons_edit"></div>
-                        </a>
-                        <a href="{% url 'main:docsdel' pk=inf.pk%}">
-                            <div class="icons_delete"></div>
                         </a>
                     </td>
                 </tr>

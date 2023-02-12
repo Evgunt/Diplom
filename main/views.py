@@ -1,7 +1,10 @@
+import os
+
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, UpdateView, TemplateView
+from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView
 from . import models, forms
 
 #
@@ -12,7 +15,7 @@ from . import models, forms
 class UserLogin(LoginView):
     template_name = 'auth/login.html'
     redirect_authenticated_user = True
-    next_page = '/profile'
+    next_page = '/mydocs'
 
 
 class Logout(LoginRequiredMixin, LogoutView):
@@ -25,13 +28,6 @@ class Registration(CreateView):
     model = models.AdvUser
     template_name = 'auth/registration.html'
     form_class = forms.RegisterUserForm
-    success_url = '/'
-
-
-class DocsAdd(LoginRequiredMixin, CreateView):
-    model = models.DocsFile
-    template_name = 'profile/docsAdd.html'
-    form_class = forms.DocsAddForm
     success_url = '/'
 
 
@@ -57,7 +53,7 @@ class ChangeUser(UpdateView, LoginRequiredMixin):
     model = models.AdvUser
     template_name = 'profile/changeProfile.html'
     form_class = forms.ChangeUserForm
-    success_url = '/profile'
+    success_url = '/mydocs'
     login_url = '/'
     pk_url_kwarg = id
 
@@ -70,7 +66,13 @@ class ChangeUser(UpdateView, LoginRequiredMixin):
         return user
 
 
-class mydocs(LoginRequiredMixin, TemplateView):
+class ChangePass(LoginRequiredMixin, PasswordChangeView):
+    template_name = 'profile/changePass.html'
+    success_url = '/mydocs'
+    login_url = '/'
+
+
+class MyDocs(LoginRequiredMixin, TemplateView):
     template_name = 'profile/mydocs.html'
     login_url = '/'
 
@@ -78,54 +80,71 @@ class mydocs(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         if models.DocsFile.objects.filter(owner=self.request.user.username).exists():
-            userDocs = models.DocsFile.objects.filter(owner=self.request.user.username)
+            userDocs = ''
+            if self.request.GET:
+                if self.request.GET['filter']=='name':
+                    userDocs = models.DocsFile.objects.filter(owner=self.request.user.username).order_by('name')
+                elif self.request.GET['filter']=='old':
+                    userDocs = models.DocsFile.objects.filter(owner=self.request.user.username).order_by('pk')
+            else:
+                userDocs = models.DocsFile.objects.filter(owner=self.request.user.username).order_by('-pk')
             context['info'] = userDocs
         return context
 
-    def dateFormat(self, date):
-        newdate = date.split('-')
-        new = newdate[2] + '.' + newdate[1] + '.' + newdate[0]
-        return new
 
-
-class ChangePass(LoginRequiredMixin, PasswordChangeView):
-    template_name = 'profile/changePass.html'
-    success_url = '/profile'
+class PublicDocs(LoginRequiredMixin, TemplateView):
+    template_name = 'profile/publicdocs.html'
     login_url = '/'
 
-    # def post(self, request, *args, **kwargs):
-    #     form = self.get_form()
-    #     if form.is_valid():
-    #         user = models.AdvUser.objects.get(pk=request.user.pk)
-    #         newUser = utilities.decode(user)
-    #         newUser.set_password(request.POST['new_password1'])
-    #         newUser = utilities.encode(newUser)
-    #         newUser.save()
-    #     return render(request, 'profile/changePass.html')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if models.DocsFile.objects.filter(status=True).exists():
+            userDocs = ''
+            if self.request.GET:
+                if self.request.GET['filter']=='name':
+                    userDocs = models.DocsFile.objects.filter(status=True).order_by('name')
+                elif self.request.GET['filter']=='old':
+                    userDocs = models.DocsFile.objects.filter(status=True).order_by('pk')
+            else:
+                userDocs = models.DocsFile.objects.filter(status=True).order_by('-pk')
+            context['info'] = userDocs
+        return context
+
+class DocsAdd(LoginRequiredMixin, CreateView):
+    model = models.DocsFile
+    template_name = 'profile/docsAdd.html'
+    form_class = forms.DocsAddForm
+    success_url = '/mydocs'
+
+    def post(self, request, *args, **kwargs):
+        form = forms.DocsAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.owner = request.user
+            instance.docs = request.FILES['docs']
+            instance.extension = request.FILES['docs'].name.split('.')[-1]
+            instance.save()
+        return HttpResponseRedirect('/mydocs')
 
 
-# def fogot_password_form(request):
-#     if request.user.is_authenticated:
-#         return redirect('/profile')
-#     else:
-#         context = {}
-#         if request.method == "POST":
-#             username = request.POST['username']
-#             if models.AdvUser.objects.filter(username=username).exists():
-#                 user = models.AdvUser.objects.get(username=username)
-#                 utilities.send_password_notification(user)
-#                 context['errors'] = "Проверьте почту"
-#             else:
-#                 context['errors'] = "Введен неверный логин"
-#         return render(request, 'auth/password_email_form.html', context)
+class DocsDelete(LoginRequiredMixin, DeleteView):
+    model = models.DocsFile
+    template_name = 'profile/deleteDocs.html'
+    success_url = '/mydocs'
 
 
-# def password_email(request, sign):
-#     username = utilities.signer.unsign(sign)
-#     user = get_object_or_404(models.AdvUser, username=username)
-#     password = utilities.generate_password()
-#     user.set_password(password)
-#     user.save()
-#     context = {'user': username, 'password': password}
-#     return render(request, 'auth/password_change_email.html', context)
+class DocsEdit(LoginRequiredMixin, UpdateView):
+    model = models.DocsFile
+    template_name = 'profile/changeDocs.html'
+    form_class = forms.ChangeDocsForm
+    success_url = '/mydocs'
+    login_url = '/'
+    pk_url_kwarg = id
 
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        pk = self.kwargs.get('pk')
+        docs = get_object_or_404(queryset, pk=pk)
+        return docs

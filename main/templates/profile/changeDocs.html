@@ -17,19 +17,19 @@
         </nav>
     </div>
     <section class="person_center">
-        <h3 class="person_title">Добавление документа</h3>
+        <h3 class="person_title">Изменение документа</h3>
         <form method="POST" class="person_form" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="hidden" value="{{request.user}}" name="owner" requered>
+            <input type="hidden" value="{{request.user}}" name="owner" required>
             <label class="label_form">
                 <span>Название</span>
-                <input type="text" placeholder="Name" class="person_input" name="name">
+                <input type="text" placeholder="Name" class="person_input" name="name" value="{{form.name.value}}">
             </label>
             <label class="label_form">
                 <span>Комментарий</span>
-                <textarea name="comments" placeholder="Comment"></textarea>
+                <textarea name="comments" placeholder="Comment">{{form.comments.value}}</textarea>
             </label>
-            <label class="label_form">
+            <!-- <label class="label_form">
                 <span>Документ</span>
                 <div class="file_wrapper">
                     <div class="inputFile">
@@ -38,17 +38,18 @@
                     </div>
                     <p class="errors_file">Фаил не выбран</p>
                 </div>
-            </label>
+            </label> -->
             <label class="label_form">
                 <span>Сделать общедоступным</span>
                 <div class="checkbox-wrapper">
                     <label>
-                        <input type="checkbox" name="status" class="modern-radio">
+                        <input type="checkbox" name="status" class="modern-radio" {%if form.status.value %} checked
+                            {%endif%}>
                         <span></span>
                     </label>
                 </div>
             </label>
-            <input type="submit" value="Добавить" class="change_form_submit">
+            <input type="submit" value="Изменить" class="change_form_submit">
         </form>
     </section>
 </main>

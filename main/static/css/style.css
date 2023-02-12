@@ -177,6 +177,8 @@ main {
     -o-border-radius: 5px 5px 0px 0px;
 }
 
+/* Кастомный чек-бокс */
+
 .checkbox-wrapper input {
     position: absolute;
     opacity: 0;
@@ -193,15 +195,13 @@ main {
     user-select: none;
 }
 
-/* Кастомный чек-бокс */
-
 .checkbox-wrapper span {
     position: absolute;
     top: 1px;
     left: 0;
     height: 20px;
     width: 20px;
-    background-color: #c9c9c9;
+    background-color: #1b1d24;
     border-radius: 50%;
 }
 
@@ -797,7 +797,7 @@ footer {
 
 .change_form_submit {
     color: #fff;
-    padding: 8px 20px;
+    padding: 10px 20px;
     background-color: #c69d5b;
     border: 0;
     font-weight: 500;
@@ -808,10 +808,6 @@ footer {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    -webkit-text-shadow: 3px 1px 7px rgba(47, 47, 47, 0.5);
-    -moz-text-shadow: 3px 1px 7px rgba(47, 47, 47, 0.5);
-    text-shadow: 3px 1px 7px rgba(47, 47, 47, 0.5);
-    border: 3px solid #c69d5b;
     transition: all 0.2s;
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
@@ -824,10 +820,6 @@ footer {
 
 .change_form_submit:hover {
     background-color: #1b1d24;
-    border: 3px solid #c69d5b;
-    -webkit-box-shadow: 0px 0px 5px 3px rgb(34 60 80 / 25%);
-    -moz-box-shadow: 0px 0px 5px 3px rgba(34, 60, 80, 0.25);
-    box-shadow: 0px 0px 5px 3px rgb(34 60 80 / 25%);
 }
 
 .form_udertext_reg {
@@ -1182,8 +1174,7 @@ table {
 
 thead .cell {
     text-decoration: none;
-    font-size: 20px;
-    font-weight: 600;
+    font-weight: 500;
     color: #fff;
     background-color: #c69d5b;
     -webkit-text-shadow: 3px 1px 7px rgba(47, 47, 47, 0.5);
@@ -1211,8 +1202,8 @@ thead .cell:nth-last-child(1) {
 
 .cell {
     padding: 10px 20px;
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 400;
     color: #1b1d24;
     border-bottom: 3px solid #1b1d24;
     border-right: 3px solid #1b1d24;
@@ -1256,7 +1247,7 @@ thead .cell:nth-last-child(1) {
 
 .comments {
     padding: 10px 20px;
-    max-height: 100px;
+    max-height: 55px;
     overflow-y: auto;
 }
 
@@ -1356,6 +1347,8 @@ thead .cell:nth-last-child(1) {
 
 .button_add_docs {
     text-align: center;
+    display: block;
+    text-decoration: none;
     background-color: #1b1d24;
     color: #fff;
     font-weight: 600;
@@ -1381,6 +1374,141 @@ thead .cell:nth-last-child(1) {
 
 .button_add_docs:hover {
     background-color: #c69d5b;
+}
+
+.person_form textarea {
+    width: 350px;
+    background-color: #1b1d24;
+    color: #c69d5b;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    resize: vertical;
+    height: 100px;
+}
+
+.inputFile {
+    margin-top: 18px;
+    width: 348px;
+    height: 64px;
+    border: 1.75px solid #1b1d24;
+    background-color: #1b1d24;
+    border-radius: 5px;
+}
+
+.inputFile div {
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+    color: #c69d5b;
+    margin-top: 17px;
+}
+
+.inputFile input {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    top: -41px;
+    cursor: pointer;
+}
+
+.errors_file {
+    text-align: center;
+    width: 348px;
+    padding: 10px 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text_empty {
+    font-weight: 500;
+    font-size: 25px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.del_text {
+    font-weight: 500;
+    font-size: 23px;
+    margin-top: 20px;
+}
+
+.change_form_submit-nonmargin {
+    margin: 0;
+    margin-top: 15px;
+    display: inline;
+}
+
+.delete_href {
+    font-weight: 600;
+    font-size: 20px;
+    text-decoration: none;
+    color: #1b1d24;
+    border: 2px solid #1b1d24;
+    padding: 7px 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin-left: 10px;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+}
+
+.delete_href:hover {
+    background-color: #1b1d24;
+    color: #fff;
+}
+
+.filter_wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter {
+    display: flex;
+}
+
+.filter a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
+    background-color: #c69d5b;
+    padding: 8px 20px;
+    display: block;
+    height: 43px;
+    opacity: 0.7;
+    border-top: 2px solid #c69d5b;
+}
+
+.filter .filter--active {
+    opacity: 1;
+    border: 2px solid #1b1d24;
+    border-left: 0;
+    border-right: 0;
+}
+
+.filter a:hover {
+    text-decoration: underline;
+    border: 2px solid #1b1d24;
+    border-left: 0;
+    border-right: 0;
+    opacity: 1;
+}
+
+.filter_wrapper .empty {
+    margin-bottom: 60px;
 }
 
 /*Конец*/

@@ -35,7 +35,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
-    'post_office'
+    'post_office',
+    'django_cleanup',
+    'easy_thumbnails'
+
 ]
 
 MIDDLEWARE = [
@@ -132,3 +135,17 @@ SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_BACKEND = 'post_office.EmailBackend'
 EMAIL_USE_TLS = True
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+THUMBNAIL_ALIASES = {
+   '': {
+       'default': {
+           'size': (96, 96),
+           'crop': 'scale',
+       },
+   },
+}
+
+THUMBNAIL_BASEDIR = 'thumbnails'

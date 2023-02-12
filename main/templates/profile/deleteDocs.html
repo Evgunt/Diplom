@@ -1,0 +1,33 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block content %}
+<main class="personal">
+    <div class="menu_person">
+        <img src="{% static 'img/user.png'%}" alt="profile" class="profile_img">
+        <div class="profile_name">Evan Gunter</div>
+        <nav>
+            <a href="{% url 'main:mydocs'%}">Мои документы</a>
+            <a href="{% url 'main:publicdocs'%}">Общие документы</a>
+            {%if request.user.is_staff%}
+            <a href="{% url 'main:registration'%}">Новый сотрудник</a>
+            {%endif%}
+            <a href="{% url 'main:profile'%}">Личные данные</a>
+            <a href="{% url 'main:changepass' pk=user.pk%}">Смена пароля</a>
+            <a href="{% url 'main:logout'%}">Выход</a>
+        </nav>
+    </div>
+    <section class="person_center">
+        <h3 class="person_title">Удаление документа</h3>
+        {% if object.owner == request.user %}
+        <p class="del_text">Вы уверены что хотите удалить "{{ object.name }}"?</p>
+        <form method="post" class="person_form">
+            {% csrf_token %}
+            <input type="submit" class="change_form_submit change_form_submit-nonmargin" value="Удалить">
+            <a href="{% url 'main:mydocs'%}" class="delete_href">Назад</a>
+        </form>
+        {%else%}
+        <p class="del_text">У вас не доступа к данному действию</p>
+        {%endif%}
+    </section>
+</main>
+{% endblock %}

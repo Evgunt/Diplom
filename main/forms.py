@@ -64,7 +64,12 @@ class ChangeUserForm(forms.ModelForm):
 
 
 class DocsAddForm(forms.ModelForm):
-    file = forms.FileField()
     class Meta:
         model = DocsFile
         fields = '__all__'
+
+
+class ChangeDocsForm(forms.ModelForm):
+    class Meta:
+        model = DocsFile
+        fields = ('name', 'status', 'comments')

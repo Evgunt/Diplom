@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 <div class="center_registration">
+    {%if request.user.is_staff%}
     <form class="reg_form" method="POST">
         <div class="reg__title">Добавление нового сотрудника</div>
        {% csrf_token %}
@@ -51,9 +52,11 @@
             <div class="help_text">{{form.errors.job}}</div>
         </label>
         <input type="submit" value="Зарегистрировать">
-<!--        <div class="form_udertext_reg">Уже зарегистрированы? <a href="{%url 'media:login'%}">Войти в аккаунт</a></div>-->
     </form>
     <div class="clear"></div>
+    {%else%}
+        <p class="text_empty">У вас нет доступа к этой странице</p>
+    {%endif%}
 </div>
 
 {% endblock %}

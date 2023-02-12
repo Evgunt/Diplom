@@ -15,14 +15,14 @@ class AdvUser(AbstractUser):
 
 
 class DocsFile(models.Model):
-    name = models.CharField(unique=True, max_length=300, default="", blank=False, verbose_name='Название')
-    date = models.CharField(max_length=300, default="", blank=True, verbose_name='Дата добавления')
+    name = models.CharField(unique=True, max_length=300, blank=False, verbose_name='Название')
+    date = models.DateField(verbose_name='Дата добавления', auto_now_add=True)
     extension = models.CharField(max_length=300, default="", blank=True, verbose_name='Расширение')
     owner = models.ForeignKey(AdvUser, on_delete=models.CASCADE, blank=False, verbose_name='Владелец',
                               to_field="username", default="")
     status = models.BooleanField(default=False, verbose_name='Публичный')
-    comments = models.TextField(default="", blank=False, verbose_name='Комментарий')
-    docs = models.FileField(default="", blank=True, verbose_name='Документ', upload_to='media/docs'),
+    comments = models.TextField(default="", blank=True, verbose_name='Комментарий')
+    docs = models.FileField(default="", blank=False, verbose_name='Документ', upload_to='docs')
 
     class Meta:
         verbose_name_plural = 'Документы'
