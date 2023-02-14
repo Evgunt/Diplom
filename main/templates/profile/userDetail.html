@@ -18,41 +18,40 @@
         </nav>
     </div>
     <section class="person_center">
-        <h3 class="person_title">Личные данные</h3>
+        <h3 class="person_title">Личные данные {{object.first_name}} {{object.last_name}}</h3>
         <div class="profile_info">
             <div class="profile_info__item">
                 <span>Логин</span>
-                <div class="profile_info__link">{{info.username}}</div>
+                <div class="profile_info__link">{{object.username}}</div>
             </div>
             <div class="profile_info__item">
                 <span>Фамилия</span>
-                <div class="profile_info__link">{{info.last_name}}</div>
+                <div class="profile_info__link">{{object.last_name}}</div>
             </div>
             <div class="profile_info__item">
                 <span>Имя</span>
-                <div class="profile_info__link">{{info.first_name}}</div>
+                <div class="profile_info__link">{{object.first_name}}</div>
             </div>
             <div class="profile_info__item">
                 <span>Отчество</span>
-                <div class="profile_info__link">{{info.midl_name}}</div>
+                <div class="profile_info__link">{{object.midl_name}}</div>
             </div>
             <div class="profile_info__item">
                 <span>Эл. почта (Email)</span>
-                <div class="profile_info__link">{{info.email}}</div>
+                <div class="profile_info__link">{{object.email}}</div>
             </div>
             <div class="profile_info__item">
                 <span>Телефон</span>
-                <div class="profile_info__link">{{info.phone}}</div>
+                <div class="profile_info__link">{{object.phone}}</div>
             </div>
             <div class="profile_info__item">
                 <span>Дата рождения</span>
-                <div class="profile_info__link">{{info.dateBorn}}</div>
+                <div class="profile_info__link">{{object.dateBorn}}</div>
             </div>
             <div class="profile_info__item">
                 <span>Должность</span>
-                <div class="profile_info__link">{{info.job}}</div>
+                <div class="profile_info__link">{{object.job}}</div>
             </div>
-            <a href="{% url 'main:changeprofile' pk=info.pk %}" class="profile_info__submit">Изменить</a>
         </div>
     </section>
 </main>

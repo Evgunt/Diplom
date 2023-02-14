@@ -4,10 +4,11 @@
 <main class="personal">
     <div class="menu_person">
         <img src="{% static 'img/user.png'%}" alt="profile" class="profile_img">
-        <div class="profile_name">Evan Gunter</div>
+        <div class="profile_name">{{request.user.first_name}} {{request.user.last_name}}</div>
         <nav>
             <a href="{% url 'main:mydocs'%}">Мои документы</a>
             <a href="{% url 'main:publicdocs'%}" class="menu--active">Общие документы</a>
+            <a href="{% url 'main:search'%}">Поиск документа</a>
             {%if request.user.is_staff%}
             <a href="{% url 'main:registration'%}">Новый сотрудник</a>
             {%endif%}
@@ -22,21 +23,21 @@
             <div class="empty"></div>
             <div class="filter">
                 {% if request.GET.filter == 'name'%}
-                <a href="{% url 'main:mydocs'%}?filter=name" class="filter--active">По имени</a>
+                <a href="{% url 'main:publicdocs'%}?filter=name" class="filter--active">По имени</a>
                 {%else%}
-                <a href="{% url 'main:mydocs'%}?filter=name">По имени</a>
+                <a href="{% url 'main:publicdocs'%}?filter=name">По имени</a>
                 {%endif%}
 
                 {% if request.GET.filter%}
-                <a href="{% url 'main:mydocs'%}">Сначала новые</a>
+                <a href="{% url 'main:publicdocs'%}">Сначала новые</a>
                 {%else%}
-                <a href="{% url 'main:mydocs' %}" class="filter--active">Сначала новые</a>
+                <a href="{% url 'main:publicdocs'%}" class="filter--active">Сначала новые</a>
                 {%endif%}
 
                 {% if request.GET.filter == 'old'%}
-                <a href="{% url 'main:mydocs'%}?filter=old" class="filter--active">Сначала старые</a>
+                <a href="{% url 'main:publicdocs'%}?filter=old" class="filter--active">Сначала старые</a>
                 {%else%}
-                <a href="{% url 'main:mydocs'%}?filter=old">Сначала старые</a>
+                <a href="{% url 'main:publicdocs'%}?filter=old">Сначала старые</a>
                 {%endif%}
             </div>
         </div>
@@ -46,7 +47,7 @@
                 <tr class="row">
                     <th class="cell">Название</th>
                     <th class="cell">Дата добавления</th>
-                     <th class="cell">Владелец</th>
+                    <th class="cell">Владелец</th>
                     <th class="cell">Комментарий</th>
                     <th class="cell">Расширение</th>
                     <th class="cell">Скачать</th>
@@ -57,7 +58,9 @@
                 <tr class="row">
                     <td class="cell">{{inf.name}}</td>
                     <td class="cell">{{inf.date}}</td>
-                     <td class="cell">{{inf.owner}}</td>
+                    <td class="cell">
+                        <a href="{%url 'main:userprofile' pk=inf.owner.pk%}" class="cell_userA">{{inf.owner}}</a>
+                    </td>
                     <td class="cell">
                         <div class="comments">{{inf.comments}}</div>
                     </td>

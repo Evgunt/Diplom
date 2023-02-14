@@ -1,15 +1,10 @@
-import os
-
+from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView
+from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView, DetailView
 from . import models, forms
-
-#
-# def index(request):
-#     return render(request, 'index.html')
 
 
 class UserLogin(LoginView):
@@ -28,7 +23,7 @@ class Registration(CreateView):
     model = models.AdvUser
     template_name = 'auth/registration.html'
     form_class = forms.RegisterUserForm
-    success_url = '/'
+    success_url = '/mydocs'
 
 
 class Profile(LoginRequiredMixin, TemplateView):
@@ -38,7 +33,6 @@ class Profile(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = models.AdvUser.objects.get(pk=self.request.user.pk)
-        # user = utilities.decode(user)
         user.dateBorn = self.dateFormat(user.dateBorn)
         context['info'] = user
         return context
@@ -48,6 +42,23 @@ class Profile(LoginRequiredMixin, TemplateView):
         new = newdate[2]+'.'+newdate[1]+'.'+newdate[0]
         return new
 
+
+class ProfileDetail(LoginRequiredMixin, DetailView):
+    model = models.AdvUser
+    template_name = 'profile/userDetail.html'
+
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        pk = self.kwargs.get('pk')
+        user = get_object_or_404(queryset, pk=pk)
+        user.dateBorn = self.dateFormat(user.dateBorn)
+        return user
+
+    def dateFormat(self, date):
+        newdate = date.split('-')
+        new = newdate[2]+'.'+newdate[1]+'.'+newdate[0]
+        return new
 
 class ChangeUser(UpdateView, LoginRequiredMixin):
     model = models.AdvUser
@@ -62,7 +73,6 @@ class ChangeUser(UpdateView, LoginRequiredMixin):
             queryset = self.get_queryset()
         pk = self.kwargs.get('pk')
         user = get_object_or_404(queryset, pk=pk)
-        # user = utilities.decode(user)
         return user
 
 
@@ -111,6 +121,7 @@ class PublicDocs(LoginRequiredMixin, TemplateView):
             context['info'] = userDocs
         return context
 
+
 class DocsAdd(LoginRequiredMixin, CreateView):
     model = models.DocsFile
     template_name = 'profile/docsAdd.html'
@@ -148,3 +159,20 @@ class DocsEdit(LoginRequiredMixin, UpdateView):
         pk = self.kwargs.get('pk')
         docs = get_object_or_404(queryset, pk=pk)
         return docs
+
+
+class Search(LoginRequiredMixin, TemplateView):
+    template_name = 'profile/search.html'
+    login_url = '/'
+
+    def post(self, request, *args, **kwargs):
+        key = request.POST['key']
+        context = {}
+        if models.DocsFile.objects.filter(Q(name__iregex=key, owner=request.user)
+                                          | Q(name__iregex=key, status=True)).exists():
+            context['info'] = models.DocsFile.objects.filter(Q(name__iregex=key, owner=request.user)
+                                                             | Q(name__iregex=key, status=True)).order_by('-pk')
+        else:
+            context['message'] = 'По вашему запросу ничего не найдено'
+        return render(request, 'profile/search.html', context)
+

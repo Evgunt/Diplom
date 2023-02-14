@@ -6,9 +6,9 @@
         <img src="{% static 'img/user.png'%}" alt="profile" class="profile_img">
         <div class="profile_name">{{request.user.first_name}} {{request.user.last_name}}</div>
         <nav>
-            <a href="{% url 'main:mydocs'%}" class="menu--active">Мои документы</a>
+            <a href="{% url 'main:mydocs'%}">Мои документы</a>
             <a href="{% url 'main:publicdocs'%}">Общие документы</a>
-            <a href="{% url 'main:search'%}">Поиск документа</a>
+            <a href="{% url 'main:search'%}" class="menu--active">Поиск документа</a>
             {%if request.user.is_staff%}
             <a href="{% url 'main:registration'%}">Новый сотрудник</a>
             {%endif%}
@@ -18,39 +18,22 @@
         </nav>
     </div>
     <section class="person_center">
-        <h3 class="person_title">Мои документы</h3>
-        <div class="filter_wrapper">
-            <a href="{% url 'main:docsadd' %}" class="button_add_docs">Добавить документ</a>
-            <div class="filter">
-                {% if request.GET.filter == 'name'%}
-                <a href="{% url 'main:mydocs'%}?filter=name" class="filter--active">По имени</a>
-                {%else%}
-                <a href="{% url 'main:mydocs'%}?filter=name">По имени</a>
-                {%endif%}
-
-                {% if request.GET.filter%}
-                <a href="{% url 'main:mydocs'%}">Сначала новые</a>
-                {%else%}
-                <a href="{% url 'main:mydocs' %}" class="filter--active">Сначала новые</a>
-                {%endif%}
-
-                {% if request.GET.filter == 'old'%}
-                <a href="{% url 'main:mydocs'%}?filter=old" class="filter--active">Сначала старые</a>
-                {%else%}
-                <a href="{% url 'main:mydocs'%}?filter=old">Сначала старые</a>
-                {%endif%}
-            </div>
-        </div>
+        <h3 class="person_title">Поиск</h3>
+        <form method="POST" class="search_form">
+            {% csrf_token %}
+            <input type="text" name="key" placeholder="Введите запрос" class="search_key">
+            <input type="submit" value="Найти" class="search_butt">
+        </form>
         {% if info %}
         <table>
             <thead>
                 <tr class="row">
                     <th class="cell">Название</th>
                     <th class="cell">Дата добавления</th>
-                    <!-- <th class="cell">Владелец</th> -->
+                    <th class="cell">Владелец</th>
                     <th class="cell">Комментарий</th>
                     <th class="cell">Расширение</th>
-                    <th class="cell">Опции</th>
+                    <th class="cell">Скачать</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,7 +41,9 @@
                 <tr class="row">
                     <td class="cell">{{inf.name}}</td>
                     <td class="cell">{{inf.date}}</td>
-                    <!-- <td class="cell">{{inf.owner}}</td> -->
+                    <td class="cell">
+                        <a href="{%url 'main:userprofile' pk=inf.owner.pk%}" class="cell_userA">{{inf.owner}}</a>
+                    </td>
                     <td class="cell">
                         <div class="comments">{{inf.comments}}</div>
                     </td>
@@ -67,19 +52,13 @@
                         <a href="/media/{{inf.docs}}" target="_blank">
                             <div class="icons_download"></div>
                         </a>
-                        <a href="{% url 'main:docsedit' pk=inf.pk%}">
-                            <div class="icons_edit"></div>
-                        </a>
-                        <a href="{% url 'main:docsdel' pk=inf.pk%}">
-                            <div class="icons_delete"></div>
-                        </a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         {% else %}
-        <p class="text_empty">Пока что тут пусто</p>
+        <p class="text_empty">{{message}}</p>
         {%endif%}
     </section>
 </main>
