@@ -1581,3 +1581,60 @@ thead .cell:nth-last-child(1) {
 }
 
 /*Конец*/
+
+/* Пагинация */
+
+.pagination {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.step_links {
+    display: flex;
+    justify-content: center;
+}
+
+.step_links a {
+    text-decoration: none;
+    font-size: 23px;
+    font-weight: 500;
+    color: #1b1d24;
+    border: 2px solid #1b1d24;
+    padding: 1px 10px;
+    display: block;
+    border-right: 0;
+}
+
+.step_links a:nth-last-child(1) {
+    border-right: 2px solid #1b1d24;
+    border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    -ms-border-radius: 0 5px 5px 0;
+    -o-border-radius: 0 5px 5px 0;
+}
+
+.step_links a:nth-child(1) {
+    border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    -ms-border-radius: 5px 0 0 5px;
+    -o-border-radius: 5px 0 0 5px;
+}
+
+.current {
+    background-color: #c69d5b;
+    color: #fff;
+    border: 2px solid #1b1d24;
+    text-decoration: none;
+    font-size: 23px;
+    font-weight: 500;
+    padding: 1px 10px;
+    display: block;
+}
+
+.step_links a:hover:not(.current) {
+    background-color: #deceb3;
+}
+
+/*Конец*/

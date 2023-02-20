@@ -59,7 +59,8 @@
                     <td class="cell">{{inf.name}}</td>
                     <td class="cell">{{inf.date}}</td>
                     <td class="cell">
-                        <a href="{%url 'main:userprofile' pk=inf.owner.pk%}" class="cell_userA">{{inf.owner}}</a>
+                        <a href="{%url 'main:userprofile' pk=inf.owner.pk%}" target="_blank"
+                            class="cell_userA">{{inf.owner}}</a>
                     </td>
                     <td class="cell">
                         <div class="comments">{{inf.comments}}</div>
@@ -74,6 +75,28 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% if info.paginator.num_pages > 1%}
+        <div class="pagination">
+            <span class="step_links">
+                {% if info.has_previous %}
+                {% if info.previous_page_number > 1 %}
+                <a href="?page=1" title="В начало">«</a>
+                {% endif %}
+                <a href="?page={{ info.previous_page_number }}">{{ info.previous_page_number }}</a>
+                {% endif %}
+
+                <a href="?page={{ info.number }}" class="current">
+                    {{ info.number }}
+                </a>
+                {% if info.has_next %}
+                <a href="?page={{ info.next_page_number }}">{{ info.next_page_number }}</a>
+                {% if info.paginator.num_pages > info.next_page_number%}
+                <a href="?page={{ info.paginator.num_pages }}" title="В конец">»</a>
+                {% endif %}
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
         {% else %}
         <p class="text_empty">Пока что тут пусто</p>
         {%endif%}

@@ -1,9 +1,10 @@
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView, DetailView, ListView
 from . import models, forms
 
 
@@ -39,7 +40,7 @@ class Profile(LoginRequiredMixin, TemplateView):
 
     def dateFormat(self, date):
         newdate = date.split('-')
-        new = newdate[2]+'.'+newdate[1]+'.'+newdate[0]
+        new = newdate[2] + '.' + newdate[1] + '.' + newdate[0]
         return new
 
 
@@ -57,8 +58,9 @@ class ProfileDetail(LoginRequiredMixin, DetailView):
 
     def dateFormat(self, date):
         newdate = date.split('-')
-        new = newdate[2]+'.'+newdate[1]+'.'+newdate[0]
+        new = newdate[2] + '.' + newdate[1] + '.' + newdate[0]
         return new
+
 
 class ChangeUser(UpdateView, LoginRequiredMixin):
     model = models.AdvUser
@@ -82,42 +84,60 @@ class ChangePass(LoginRequiredMixin, PasswordChangeView):
     login_url = '/'
 
 
-class MyDocs(LoginRequiredMixin, TemplateView):
+class MyDocs(LoginRequiredMixin, ListView):
     template_name = 'profile/mydocs.html'
     login_url = '/'
+    model = models.DocsFile
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         if models.DocsFile.objects.filter(owner=self.request.user.username).exists():
             userDocs = ''
-            if self.request.GET:
-                if self.request.GET['filter']=='name':
+            if 'filter' in self.request.GET:
+                if self.request.GET['filter'] == 'name':
                     userDocs = models.DocsFile.objects.filter(owner=self.request.user.username).order_by('name')
-                elif self.request.GET['filter']=='old':
+                elif self.request.GET['filter'] == 'old':
                     userDocs = models.DocsFile.objects.filter(owner=self.request.user.username).order_by('pk')
             else:
                 userDocs = models.DocsFile.objects.filter(owner=self.request.user.username).order_by('-pk')
+
+            paginator = Paginator(userDocs, 5)
+            if 'page' in self.request.GET:
+                page_num = self.request.GET['page']
+            else:
+                page_num = 1
+            userDocs = paginator.get_page(page_num)
+
             context['info'] = userDocs
         return context
 
 
-class PublicDocs(LoginRequiredMixin, TemplateView):
+class PublicDocs(LoginRequiredMixin, ListView):
     template_name = 'profile/publicdocs.html'
     login_url = '/'
+    model = models.DocsFile
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         if models.DocsFile.objects.filter(status=True).exists():
             userDocs = ''
-            if self.request.GET:
-                if self.request.GET['filter']=='name':
+            if 'filter' in self.request.GET:
+                if self.request.GET['filter'] == 'name':
                     userDocs = models.DocsFile.objects.filter(status=True).order_by('name')
-                elif self.request.GET['filter']=='old':
+                elif self.request.GET['filter'] == 'old':
                     userDocs = models.DocsFile.objects.filter(status=True).order_by('pk')
             else:
                 userDocs = models.DocsFile.objects.filter(status=True).order_by('-pk')
+
+            paginator = Paginator(userDocs, 5)
+            if 'page' in self.request.GET:
+                page_num = self.request.GET['page']
+            else:
+                page_num = 1
+            userDocs = paginator.get_page(page_num)
+
             context['info'] = userDocs
         return context
 
@@ -170,9 +190,37 @@ class Search(LoginRequiredMixin, TemplateView):
         context = {}
         if models.DocsFile.objects.filter(Q(name__iregex=key, owner=request.user)
                                           | Q(name__iregex=key, status=True)).exists():
-            context['info'] = models.DocsFile.objects.filter(Q(name__iregex=key, owner=request.user)
-                                                             | Q(name__iregex=key, status=True)).order_by('-pk')
+            userDocs = models.DocsFile.objects.filter(Q(name__iregex=key, owner=request.user)
+                                                      | Q(name__iregex=key, status=True)).order_by('-pk')
+
+            paginator = Paginator(userDocs, 5)
+            if 'page' in self.request.GET:
+                page_num = self.request.GET['page']
+            else:
+                page_num = 1
+            context['info'] = paginator.get_page(page_num)
+            context['key'] = key
+
         else:
             context['message'] = 'По вашему запросу ничего не найдено'
         return render(request, 'profile/search.html', context)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if 'key' in self.request.GET:
+            key = self.request.GET['key']
+            if models.DocsFile.objects.filter(Q(name__iregex=key, owner=self.request.user)
+                                              | Q(name__iregex=key, status=True)).exists():
+                userDocs = models.DocsFile.objects.filter(Q(name__iregex=key, owner=self.request.user)
+                                                          | Q(name__iregex=key, status=True)).order_by('-pk')
+
+                paginator = Paginator(userDocs, 5)
+                if 'page' in self.request.GET:
+                    page_num = self.request.GET['page']
+                else:
+                    page_num = 1
+                context['info'] = paginator.get_page(page_num)
+                context['key'] = key
+            else:
+                context['message'] = 'По вашему запросу ничего не найдено'
+        return context
