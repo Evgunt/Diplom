@@ -1,0 +1,42 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block content %}
+<main class="personal">
+    <div class="menu_person">
+        <img src="{% static 'img/user.png'%}" alt="profile" class="profile_img">
+        <div class="profile_name">{{request.user.first_name}} {{request.user.last_name}}</div>
+        <nav>
+            <a href="{% url 'main:mydocs'%}">Мои документы</a>
+            <a href="{% url 'main:publicdocs'%}">Общие документы</a>
+            <a href="{% url 'main:search'%}">Поиск документа</a>
+            {%if request.user.is_staff%}
+            <a href="{% url 'main:registration'%}">Новый сотрудник</a>
+            {%endif%}
+            <a href="{% url 'main:profile'%}">Личные данные</a>
+            <a href="{% url 'main:changepass' pk=user.pk%}">Смена пароля</a>
+            <a href="{% url 'main:logout'%}">Выход</a>
+        </nav>
+    </div>
+    <section class="person_center">
+        <h3 class="person_title">Отправка документа</h3>
+        <p class="email_text">Выбранный документ для отправки: <span>{{docs.name}}.{{docs.extension}}</span></p>
+            {{filename}}
+        <form method="POST" class="person_form">
+            {% csrf_token %}
+            <input type="hidden" name="docs_id" value="{{docs.pk}}">
+            <label class="label_form">
+                <span>Введите почту получателя</span>
+                <input type="email" placeholder="Email" class="person_input" name="email" required>
+            </label>
+            <label class="label_form">
+                <span>Комментарий к письму</span>
+                <textarea name="comments" class="" placeholder="Comment"></textarea>
+            </label>
+            <input type="submit" value="Отправить" class="change_form_submit">
+        </form>
+        {%if mail%}
+        <p>{{mail}}</p>
+        {%endif%}
+    </section>
+</main>
+{% endblock %}

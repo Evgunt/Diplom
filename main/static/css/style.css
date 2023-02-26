@@ -1052,7 +1052,7 @@ footer {
 }
 
 .person_center {
-    padding: 60px 75px 60px 355px;
+    padding: 60px 75px 0 355px;
 }
 
 .person_title {
@@ -1237,14 +1237,6 @@ thead .cell:nth-last-child(1) {
     border-right: 3px solid #1b1d24;
 }
 
-.icons_download {
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-
-}
-
 .comments {
     padding: 10px 20px;
     max-height: 55px;
@@ -1291,6 +1283,8 @@ thead .cell:nth-last-child(1) {
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
     -o-transition: all 0.3s;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
 .icons_download:hover {
@@ -1353,6 +1347,29 @@ thead .cell:nth-last-child(1) {
     height: 25px;
 }
 
+.icons_mail {
+    background: url(../img/mail.png) center center no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    width: 27px;
+    height: 25px;
+    margin-top: 10px;
+    display: inline-block;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+}
+
+.icons_mail:hover {
+    background: url(../img/mail_orange.png) center center no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    width: 27px;
+    height: 25px;
+}
+
 .button_add_docs {
     text-align: center;
     display: block;
@@ -1397,6 +1414,13 @@ thead .cell:nth-last-child(1) {
     -o-border-radius: 10px;
     resize: vertical;
     height: 100px;
+}
+
+.person_form textarea:focus {
+    border: 4px solid #c69d5b;
+    -webkit-box-shadow: 0px 0px 5px 3px rgba(34, 60, 80, 0.25);
+    -moz-box-shadow: 0px 0px 5px 3px rgba(34, 60, 80, 0.25);
+    box-shadow: 0px 0px 5px 3px rgba(34, 60, 80, 0.25);
 }
 
 .inputFile {
@@ -1635,6 +1659,22 @@ thead .cell:nth-last-child(1) {
 
 .step_links a:hover:not(.current) {
     background-color: #deceb3;
+}
+
+/*Конец*/
+
+/*Отправка почтой*/
+
+.email_text {
+    font-size: 25px;
+    color: #1b1d24;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.email_text span {
+    font-style: italic;
+    font-weight: 400;
 }
 
 /*Конец*/

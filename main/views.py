@@ -1,3 +1,5 @@
+import os
+
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -6,6 +8,8 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView, DetailView, ListView
 from . import models, forms
+from post_office import mail
+from easyauth.settings import MEDIA_ROOT, DEFAULT_FROM_EMAIL
 
 
 class UserLogin(LoginView):
@@ -102,7 +106,7 @@ class MyDocs(LoginRequiredMixin, ListView):
             else:
                 userDocs = models.DocsFile.objects.filter(owner=self.request.user.username).order_by('-pk')
 
-            paginator = Paginator(userDocs, 5)
+            paginator = Paginator(userDocs, 4)
             if 'page' in self.request.GET:
                 page_num = self.request.GET['page']
             else:
@@ -131,7 +135,7 @@ class PublicDocs(LoginRequiredMixin, ListView):
             else:
                 userDocs = models.DocsFile.objects.filter(status=True).order_by('-pk')
 
-            paginator = Paginator(userDocs, 5)
+            paginator = Paginator(userDocs, 4)
             if 'page' in self.request.GET:
                 page_num = self.request.GET['page']
             else:
@@ -193,7 +197,7 @@ class Search(LoginRequiredMixin, TemplateView):
             userDocs = models.DocsFile.objects.filter(Q(name__iregex=key, owner=request.user)
                                                       | Q(name__iregex=key, status=True)).order_by('-pk')
 
-            paginator = Paginator(userDocs, 5)
+            paginator = Paginator(userDocs, 4)
             if 'page' in self.request.GET:
                 page_num = self.request.GET['page']
             else:
@@ -214,7 +218,7 @@ class Search(LoginRequiredMixin, TemplateView):
                 userDocs = models.DocsFile.objects.filter(Q(name__iregex=key, owner=self.request.user)
                                                           | Q(name__iregex=key, status=True)).order_by('-pk')
 
-                paginator = Paginator(userDocs, 5)
+                paginator = Paginator(userDocs, 4)
                 if 'page' in self.request.GET:
                     page_num = self.request.GET['page']
                 else:
@@ -224,3 +228,34 @@ class Search(LoginRequiredMixin, TemplateView):
             else:
                 context['message'] = 'По вашему запросу ничего не найдено'
         return context
+
+
+class EmailDocs(LoginRequiredMixin, TemplateView):
+    template_name = 'profile/emaildocs.html'
+    login_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if 'docs' in self.request.GET:
+            docs = models.DocsFile.objects.get(pk=self.request.GET['docs'])
+            context['docs'] = docs
+        return context
+
+    def post(self, request, *args, **kwargs):
+        docs = models.DocsFile.objects.get(pk=self.request.POST['docs_id'])
+        file = docs.name+'.'+docs.extension
+        path = os.path.join(MEDIA_ROOT, str(docs.docs))
+        data = {'filename': file, 'comments': request.POST['comments']}
+        mail.send(
+            request.POST['email'],
+            DEFAULT_FROM_EMAIL,
+            template='send_docs',
+            context=data,
+            priority='now',
+            attachments={
+                file: path
+            }
+        )
+        return HttpResponseRedirect('/mydocs')
+
+
