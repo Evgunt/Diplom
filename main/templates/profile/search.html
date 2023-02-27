@@ -21,9 +21,8 @@
         <h3 class="person_title">Поиск</h3>
         <form method="POST" class="search_form">
             {% csrf_token %}
-            <input type="text" name="key" placeholder="Введите запрос" class="search_key" 
-            {% if key %} value="{{key}}" {% endif %}
-            >
+            <input type="text" name="key" placeholder="Введите запрос" class="search_key" {% if key %} value="{{key}}"
+                {% endif %}>
             <input type="submit" value="Найти" class="search_butt">
         </form>
         {% if info %}
@@ -34,8 +33,8 @@
                     <th class="cell">Дата добавления</th>
                     <th class="cell">Владелец</th>
                     <th class="cell">Комментарий</th>
-                    <th class="cell">Расширение</th>
-                    <th class="cell">Скачать</th>
+                    <!-- <th class="cell">Расширение</th> -->
+                    <th class="cell">Опции</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,16 +44,32 @@
                     <td class="cell">{{inf.date}}</td>
                     <td class="cell">
                         <a href="{%url 'main:userprofile' pk=inf.owner.pk%}" target="_blank"
-                            class="cell_userA">{{inf.owner}}</a>
+                            class="cell_userA">{{inf.owner.last_name}} {{inf.owner.first_name}}
+                            {{inf.owner.midl_name}}</a>
                     </td>
                     <td class="cell">
                         <div class="comments">{{inf.comments}}</div>
                     </td>
-                    <td class="cell">{{inf.extension}}</td>
+                    <!-- <td class="cell">{{inf.extension}}</td> -->
                     <td class="cell">
+                        {%if inf.owner == request.user or request.user.is_staff%}
+                        <a href="/media/{{inf.docs}}" target="_blank">
+                            <div class="icons_download" title="Скачать"></div>
+                        </a>
+                        <a href="{% url 'main:docsedit' pk=inf.pk%}">
+                            <div class="icons_edit" title="Редактировать"></div>
+                        </a>
+                        <a href="{% url 'main:docsdel' pk=inf.pk%}">
+                            <div class="icons_delete" title="Удалить"></div>
+                        </a>
+                        <a href="{% url 'main:email'%}?docs={{inf.pk}}">
+                            <div class="icons_mail" title="Отправить по почте"></div>
+                        </a>
+                        {%else%}
                         <a href="/media/{{inf.docs}}" target="_blank">
                             <div class="icons_download"></div>
                         </a>
+                        {%endif%}
                     </td>
                 </tr>
                 {% endfor %}
@@ -65,7 +80,7 @@
             <span class="step_links">
                 {% if info.has_previous %}
                 {% if info.previous_page_number > 1 %}
-                <a href="?page=1&key={{key}}"  title="В начало">«</a>
+                <a href="?page=1&key={{key}}" title="В начало">«</a>
                 {% endif %}
                 <a href="?page={{ info.previous_page_number }}&key={{key}}">{{ info.previous_page_number }}</a>
                 {% endif %}

@@ -12,17 +12,22 @@
             {%if request.user.is_staff%}
             <a href="{% url 'main:registration'%}">Новый сотрудник</a>
             {%endif%}
-            <a href="{% url 'main:profile'%}" class="menu--active">Личные данные</a>
+            <a href="{% url 'main:profile'%}">Личные данные</a>
             <a href="{% url 'main:changepass' pk=user.pk%}">Смена пароля</a>
             <a href="{% url 'main:logout'%}">Выход</a>
         </nav>
     </div>
     <section class="person_center">
-        <h3 class="person_title">Личные данные {{object.first_name}} {{object.last_name}}</h3>
+        <h3 class="person_title">
+            {%if object.is_staff%}
+            <span>Администратор </span>
+            {%else%}
+            <span>Пользователь </span>
+            {%endif%}
+            {{object.last_name}} {{object.first_name}} {{object.midl_name}}
+        </h3>
         <div class="profile_info">
             <div class="profile_info__item">
-                <span>Логин</span>
-                <div class="profile_info__link">{{object.username}}</div>
             </div>
             <div class="profile_info__item">
                 <span>Фамилия</span>

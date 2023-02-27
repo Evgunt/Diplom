@@ -9,7 +9,7 @@
 html,
 body,
 main {
-    height: 100%;
+    min-height: 100vh;
 }
 
 .clear {
@@ -205,6 +205,13 @@ main {
     border-radius: 50%;
 }
 
+.reg_checkbox {
+    margin-top: 15px;
+}
+
+.reg_form .checkbox-wrapper span {
+    background-color: #e9e0d0;
+}
 
 .checkbox-wrapper label input:checked~span {
     background-color: #c69d5b;
@@ -979,8 +986,8 @@ footer {
 }
 
 .menu_person {
-    position: absolute;
-    left: 0;
+    position: fixed;
+    left: 60;
     top: 0;
     height: 100%;
     width: 280px;
@@ -1052,7 +1059,7 @@ footer {
 }
 
 .person_center {
-    padding: 60px 75px 0 355px;
+    padding: 60px 75px 60px 355px;
 }
 
 .person_title {
@@ -1220,12 +1227,16 @@ thead .cell:nth-last-child(1) {
     width: 100px;
 }
 
-.cell:nth-child(3) {
+.cell:nth-child(3):not(.cell_mydocs) {
     width: 250px;
     padding: 5px 5px;
 }
 
-.tbody .cell:nth-last-child(1) {
+.cell_mydocs {
+    width: 450px;
+}
+
+.comments_mydocs .tbody .cell:nth-last-child(1) {
     display: flex;
     justify-content: space-between;
 }
@@ -1239,9 +1250,10 @@ thead .cell:nth-last-child(1) {
 
 .comments {
     padding: 10px 20px;
-    max-height: 55px;
+    max-height: 99px;
     overflow-y: auto;
     overflow-x: hidden;
+    text-align: justify;
 }
 
 .cell a,

@@ -26,7 +26,7 @@
 
 <body>
     <div class="content_login">
-        <div class="content">
+        <main>
             <header class="header">
                 <a class="header_top" href="/">
                     <img src="{% static 'img/favicon.png'%}" alt="logo">
@@ -36,10 +36,8 @@
                     </div>
                 </a>
             </header>
-            <main>
-                {% block content %}{% endblock %}
-            </main>
-        </div>
+            {% block content %}{% endblock %}
+        </main>
     </div>
 </body>
 

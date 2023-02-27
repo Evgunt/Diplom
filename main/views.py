@@ -105,8 +105,7 @@ class MyDocs(LoginRequiredMixin, ListView):
                     userDocs = models.DocsFile.objects.filter(owner=self.request.user.username).order_by('pk')
             else:
                 userDocs = models.DocsFile.objects.filter(owner=self.request.user.username).order_by('-pk')
-
-            paginator = Paginator(userDocs, 4)
+            paginator = Paginator(userDocs, 10)
             if 'page' in self.request.GET:
                 page_num = self.request.GET['page']
             else:
@@ -135,7 +134,7 @@ class PublicDocs(LoginRequiredMixin, ListView):
             else:
                 userDocs = models.DocsFile.objects.filter(status=True).order_by('-pk')
 
-            paginator = Paginator(userDocs, 4)
+            paginator = Paginator(userDocs, 10)
             if 'page' in self.request.GET:
                 page_num = self.request.GET['page']
             else:
@@ -196,15 +195,13 @@ class Search(LoginRequiredMixin, TemplateView):
                                           | Q(name__iregex=key, status=True)).exists():
             userDocs = models.DocsFile.objects.filter(Q(name__iregex=key, owner=request.user)
                                                       | Q(name__iregex=key, status=True)).order_by('-pk')
-
-            paginator = Paginator(userDocs, 4)
+            paginator = Paginator(userDocs, 10)
             if 'page' in self.request.GET:
                 page_num = self.request.GET['page']
             else:
                 page_num = 1
             context['info'] = paginator.get_page(page_num)
             context['key'] = key
-
         else:
             context['message'] = 'По вашему запросу ничего не найдено'
         return render(request, 'profile/search.html', context)

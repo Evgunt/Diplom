@@ -47,10 +47,10 @@
                 <tr class="row">
                     <th class="cell">Название</th>
                     <th class="cell">Дата добавления</th>
-                    <th class="cell">Владелец</th>
                     <th class="cell">Комментарий</th>
-                    <th class="cell">Расширение</th>
-                    <th class="cell">Скачать</th>
+                    <th class="cell">Владелец</th>
+                    <!-- <th class="cell">Расширение</th> -->
+                    <th class="cell">Опции</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,17 +59,33 @@
                     <td class="cell">{{inf.name}}</td>
                     <td class="cell">{{inf.date}}</td>
                     <td class="cell">
-                        <a href="{%url 'main:userprofile' pk=inf.owner.pk%}" target="_blank"
-                            class="cell_userA">{{inf.owner}}</a>
-                    </td>
-                    <td class="cell">
                         <div class="comments">{{inf.comments}}</div>
                     </td>
-                    <td class="cell">{{inf.extension}}</td>
                     <td class="cell">
+                        <a href="{%url 'main:userprofile' pk=inf.owner.pk%}" target="_blank"
+                            class="cell_userA">{{inf.owner.last_name}} {{inf.owner.first_name}}
+                            {{inf.owner.midl_name}}</a>
+                    </td>
+                    <!-- <td class="cell">{{inf.extension}}</td> -->
+                    <td class="cell">
+                        {%if inf.owner == request.user or request.user.is_staff%}
+                        <a href="/media/{{inf.docs}}" target="_blank">
+                            <div class="icons_download" title="Скачать"></div>
+                        </a>
+                        <a href="{% url 'main:docsedit' pk=inf.pk%}">
+                            <div class="icons_edit" title="Редактировать"></div>
+                        </a>
+                        <a href="{% url 'main:docsdel' pk=inf.pk%}">
+                            <div class="icons_delete" title="Удалить"></div>
+                        </a>
+                        <a href="{% url 'main:email'%}?docs={{inf.pk}}">
+                            <div class="icons_mail" title="Отправить по почте"></div>
+                        </a>
+                        {%else%}
                         <a href="/media/{{inf.docs}}" target="_blank">
                             <div class="icons_download"></div>
                         </a>
+                        {%endif%}
                     </td>
                 </tr>
                 {% endfor %}

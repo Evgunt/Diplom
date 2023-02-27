@@ -47,8 +47,8 @@
                 <tr class="row">
                     <th class="cell">Название</th>
                     <th class="cell">Дата добавления</th>
-                    <th class="cell">Комментарий</th>
-                    <th class="cell">Расширение</th>
+                    <th class="cell cell_mydocs">Комментарий</th>
+                    <!-- <th class="cell">Расширение</th> -->
                     <th class="cell">Опции</th>
                 </tr>
             </thead>
@@ -57,10 +57,10 @@
                 <tr class="row">
                     <td class="cell">{{inf.name}}</td>
                     <td class="cell">{{inf.date}}</td>
-                    <td class="cell">
+                    <td class="cell cell_mydocs">
                         <div class="comments">{{inf.comments}}</div>
                     </td>
-                    <td class="cell">{{inf.extension}}</td>
+                    <!-- <td class="cell">{{inf.extension}}</td> -->
                     <td class="cell">
                         <a href="/media/{{inf.docs}}" target="_blank">
                             <div class="icons_download" title="Скачать"></div>

@@ -5,7 +5,7 @@
     {%if request.user.is_staff%}
     <form class="reg_form" method="POST">
         <div class="reg__title">Добавление нового сотрудника</div>
-       {% csrf_token %}
+        {% csrf_token %}
         {{form.errors}}
         <div class="input_left">
             <label>
@@ -19,7 +19,7 @@
         </div>
         <label>
             <input type="text" name="midl_name" placeholder="Отчество">
-                <div class="help_text">{{form.errors.midl_name}}</div>
+            <div class="help_text">{{form.errors.midl_name}}</div>
         </label>
         <div class="input_left">
             <label>
@@ -34,7 +34,7 @@
         </div>
         <label>
             <input type="email" name="email" placeholder="Эл. почта (Email)">
-                <div class="help_text">{{form.errors.email}}</div>
+            <div class="help_text">{{form.errors.email}}</div>
         </label>
 
         <div class="input_left">
@@ -51,11 +51,20 @@
             <input class="input_long" type="text" name="job" placeholder="Должность">
             <div class="help_text">{{form.errors.job}}</div>
         </label>
+        <label class="label_form reg_checkbox">
+            <span>Сделать Администратором</span>
+            <div class="checkbox-wrapper">
+                <label>
+                    <input type="checkbox" name="is_staff" class="modern-radio">
+                    <span></span>
+                </label>
+            </div>
+        </label>
         <input type="submit" value="Зарегистрировать">
     </form>
     <div class="clear"></div>
     {%else%}
-        <p class="text_empty">У вас нет доступа к этой странице</p>
+    <p class="text_empty">У вас нет доступа к этой странице</p>
     {%endif%}
 </div>
 

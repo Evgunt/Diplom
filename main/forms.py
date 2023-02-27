@@ -42,7 +42,7 @@ class RegisterUserForm(forms.ModelForm):
     class Meta:
         model = AdvUser
         fields = ('username', 'password', 'password2', 'first_name', 'email', 'last_name', 'midl_name',
-                  'dateBorn', 'job')
+                  'dateBorn', 'job', 'is_staff')
 
 
 class ChangeUserForm(forms.ModelForm):
