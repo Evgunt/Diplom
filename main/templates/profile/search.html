@@ -33,7 +33,6 @@
                     <th class="cell">Дата добавления</th>
                     <th class="cell">Владелец</th>
                     <th class="cell">Комментарий</th>
-                    <!-- <th class="cell">Расширение</th> -->
                     <th class="cell">Опции</th>
                 </tr>
             </thead>
@@ -50,7 +49,6 @@
                     <td class="cell">
                         <div class="comments">{{inf.comments}}</div>
                     </td>
-                    <!-- <td class="cell">{{inf.extension}}</td> -->
                     <td class="cell">
                         {%if inf.owner == request.user or request.user.is_staff%}
                         <a href="/media/{{inf.docs}}" target="_blank">

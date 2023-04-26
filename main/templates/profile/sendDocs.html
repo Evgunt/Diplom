@@ -23,14 +23,20 @@
             {{filename}}
         <form method="POST" class="person_form">
             {% csrf_token %}
-            <input type="hidden" name="docs_id" value="{{docs.pk}}">
+            <input type="hidden" name="fromUser" value="{{request.user}}">
+            <input type="hidden" name="docs" value="{{docs}}">
             <label class="label_form">
-                <span>Введите почту получателя</span>
-                <input type="email" placeholder="Email" class="person_input" name="email" required>
+                <span>Получатель</span>
+                <select class="send_select" name="toUser">
+                    {% for user in users %}
+                    <option value="{{user.pk}}">{{user.last_name}} {{user.first_name}}
+                    {{user.midl_name}}</option>
+                    {%endfor%}
+                </select>
             </label>
             <label class="label_form">
-                <span>Комментарий к письму</span>
-                <textarea name="comments" class="" placeholder="Comment"></textarea>
+                <span>Комментарий</span>
+                <textarea name="comments" placeholder="Comment"></textarea>
             </label>
             <input type="submit" value="Отправить" class="change_form_submit">
         </form>

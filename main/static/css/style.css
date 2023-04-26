@@ -1366,6 +1366,7 @@ thead .cell:nth-last-child(1) {
     width: 27px;
     height: 25px;
     margin-top: 10px;
+    margin-right: 10px;
     display: inline-block;
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -1382,6 +1383,34 @@ thead .cell:nth-last-child(1) {
     height: 25px;
 }
 
+.icons_person {
+    background: url(../img/person.png) center center no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    width: 27px;
+    height: 27px;
+    display: inline-block;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    position: relative;
+    top: -1px;
+}
+
+.icons_person:hover {
+    background: url(../img/person_orange.png) center center no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    width: 27px;
+    height: 27px;
+}
+
+.filter_buttons {
+    display: flex;
+}
+
 .button_add_docs {
     text-align: center;
     display: block;
@@ -1391,8 +1420,8 @@ thead .cell:nth-last-child(1) {
     font-weight: 600;
     font-size: 20px;
     padding: 10px 15px;
-    width: 246px;
     cursor: pointer;
+    margin-right: 10px;
     border-radius: 10px;
     margin-bottom: 15px;
     -webkit-border-radius: 10px;
@@ -1564,6 +1593,60 @@ thead .cell:nth-last-child(1) {
 }
 
 /*Конец*/
+
+/*Отправленные документы*/
+
+.docs_sended_item {
+    background-color: #d0b17e;
+    padding: 20px 15px;
+    display: flex;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.docs_sended_item__text {
+    font-size: 20px;
+    font-weight: 400;
+    margin-right: 20px;
+    width: 250px;
+}
+
+.docs_sended_item__comment {
+    font-size: 20px;
+    font-weight: 400;
+    width: 370px;
+    text-align: justify;
+    margin-right: 20px;
+}
+
+.docs_sended_item__new {
+    width: 10px;
+    height: 10px;
+    background-color: #1b1d24;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+/*Конец*/
+.send_select {
+    width: 350px;
+    background-color: #1b1d24;
+    color: #c69d5b;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
 
 /*Поиск*/
 .search_form {

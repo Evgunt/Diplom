@@ -240,7 +240,7 @@ class EmailDocs(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         docs = models.DocsFile.objects.get(pk=self.request.POST['docs_id'])
-        file = docs.name+'.'+docs.extension
+        file = docs.name + '.' + docs.extension
         path = os.path.join(MEDIA_ROOT, str(docs.docs))
         data = {'filename': file, 'comments': request.POST['comments']}
         mail.send(
@@ -256,3 +256,45 @@ class EmailDocs(LoginRequiredMixin, TemplateView):
         return HttpResponseRedirect('/mydocs')
 
 
+class SendendDocs(LoginRequiredMixin, ListView):
+    template_name = 'profile/sendedDocs.html'
+    login_url = '/'
+    model = models.SendedDocs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if models.SendedDocs.objects.filter(toUser=self.request.user.pk).exists():
+            userDocs = models.SendedDocs.objects.filter(toUser=self.request.user.pk).order_by('-pk')
+
+            paginator = Paginator(userDocs, 10)
+            if 'page' in self.request.GET:
+                page_num = self.request.GET['page']
+            else:
+                page_num = 1
+            userDocs = paginator.get_page(page_num)
+
+            context['docs'] = userDocs
+        return context
+
+
+class SendDocs(LoginRequiredMixin, CreateView):
+    model = models.SendedDocs
+    template_name = 'profile/sendDocs.html'
+    form_class = forms.SendDocs
+    success_url = '/mydocs'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if 'docs' in self.request.GET:
+            docs = models.DocsFile.objects.get(pk=self.request.GET['docs'])
+            context['docs'] = docs
+        users = models.AdvUser.objects.all()
+        context['users'] = users
+        return context
+
+
+class SendedDocsDel(LoginRequiredMixin, DeleteView):
+    model = models.SendedDocs
+    template_name = 'profile/SendedDocsDel.html'
+    success_url = '/sendeddocs'

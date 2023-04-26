@@ -18,22 +18,17 @@
         </nav>
     </div>
     <section class="person_center">
-        <h3 class="person_title">Отправка документа</h3>
-        <p class="email_text">Выбранный документ для отправки: <span>{{docs.name}}.{{docs.extension}}</span></p>
-            {{filename}}
-        <form method="POST" class="person_form">
+        <h3 class="person_title">Удаление отправленого документа</h3>
+        {% if object.toUser == request.user.pk %}
+        <p class="del_text">Вы уверены что хотите удалить "{{ object.docs.name }}"?</p>
+        <form method="post" class="person_form">
             {% csrf_token %}
-            <input type="hidden" name="docs_id" value="{{docs.pk}}">
-            <label class="label_form">
-                <span>Введите почту получателя</span>
-                <input type="email" placeholder="Email" class="person_input" name="email" required>
-            </label>
-            <label class="label_form">
-                <span>Комментарий к письму</span>
-                <textarea name="comments" class="" placeholder="Comment"></textarea>
-            </label>
-            <input type="submit" value="Отправить" class="change_form_submit">
+            <input type="submit" class="change_form_submit change_form_submit-nonmargin" value="Удалить">
+            <a href="{% url 'main:mydocs'%}" class="delete_href">Назад</a>
         </form>
+        {%else%}
+        <p class="del_text">У вас не доступа к данному действию</p>
+        {%endif%}
     </section>
 </main>
 {% endblock %}

@@ -30,3 +30,12 @@ class DocsFile(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class SendedDocs(models.Model):
+    fromUser = models.ForeignKey(AdvUser, on_delete=models.CASCADE, blank=False, verbose_name='От пользователя',
+                                 to_field="username", default="")
+    docs = models.ForeignKey(DocsFile, blank=False, verbose_name='Документ', to_field="name", default="",
+                             on_delete=models.SET_DEFAULT)
+    toUser = models.IntegerField(blank=False, default=0)
+    comments = models.TextField(default="", blank=True, verbose_name='Комментарий')

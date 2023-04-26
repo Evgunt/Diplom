@@ -18,4 +18,7 @@ urlpatterns = [
    path('docsedit/<int:pk>', views.DocsEdit.as_view(), name='docsedit'),
    path('search', views.Search.as_view(), name='search'),
    path('email', views.EmailDocs.as_view(), name='email'),
+   path('sendeddocs', views.SendendDocs.as_view(), name='sendedDocs'),
+   path('senddocs', views.SendDocs.as_view(), name='SendDocs'),
+   path('sendeddocsdel/<int:pk>', views.SendedDocsDel.as_view(), name='sendeddocsdel'),
 ]

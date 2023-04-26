@@ -20,7 +20,10 @@
     <section class="person_center">
         <h3 class="person_title">Мои документы</h3>
         <div class="filter_wrapper">
-            <a href="{% url 'main:docsadd' %}" class="button_add_docs">Добавить документ</a>
+            <div class="filter_buttons">
+                <a href="{% url 'main:docsadd' %}" class="button_add_docs">Добавить документ</a>
+                <a href="{% url 'main:sendedDocs' %}" class="button_add_docs">Отправленные вам</a>
+            </div>
             <div class="filter">
                 {% if request.GET.filter == 'name'%}
                 <a href="{% url 'main:mydocs'%}?filter=name" class="filter--active">По имени</a>
@@ -48,7 +51,6 @@
                     <th class="cell">Название</th>
                     <th class="cell">Дата добавления</th>
                     <th class="cell cell_mydocs">Комментарий</th>
-                    <!-- <th class="cell">Расширение</th> -->
                     <th class="cell">Опции</th>
                 </tr>
             </thead>
@@ -60,7 +62,6 @@
                     <td class="cell cell_mydocs">
                         <div class="comments">{{inf.comments}}</div>
                     </td>
-                    <!-- <td class="cell">{{inf.extension}}</td> -->
                     <td class="cell">
                         <a href="/media/{{inf.docs}}" target="_blank">
                             <div class="icons_download" title="Скачать"></div>
@@ -73,6 +74,9 @@
                         </a>
                         <a href="{% url 'main:email'%}?docs={{inf.pk}}">
                             <div class="icons_mail" title="Отправить по почте"></div>
+                        </a>
+                        <a href="{% url 'main:SendDocs'%}?docs={{inf.pk}}">
+                            <div class="icons_person" title="Отправить Лично"></div>
                         </a>
                     </td>
                 </tr>

@@ -1,0 +1,68 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block content %}
+<main class="personal">
+    <div class="menu_person">
+        <img src="{% static 'img/user.png'%}" alt="profile" class="profile_img">
+        <div class="profile_name">{{request.user.first_name}} {{request.user.last_name}}</div>
+        <nav>
+            <a href="{% url 'main:mydocs'%}">Мои документы</a>
+            <a href="{% url 'main:publicdocs'%}">Общие документы</a>
+            <a href="{% url 'main:search'%}">Поиск документа</a>
+            {%if request.user.is_staff%}
+            <a href="{% url 'main:registration'%}">Новый сотрудник</a>
+            {%endif%}
+            <a href="{% url 'main:profile'%}">Личные данные</a>
+            <a href="{% url 'main:changepass' pk=user.pk%}">Смена пароля</a>
+            <a href="{% url 'main:logout'%}">Выход</a>
+        </nav>
+    </div>
+    <section class="person_center">
+        <h3 class="person_title">Документы отправленые вам</h3>
+        {% if docs %}
+        <div class="docs_sended">
+            {% for doc in docs %}
+            <div class="docs_sended_item">
+                <div class="docs_sended_item__text">{{doc.docs.name}}</div>
+                <div class="docs_sended_item__text">{{doc.fromUser.last_name}} {{doc.fromUser.first_name}}
+                    {{doc.fromUser.midl_name}}</div>
+                <div class="docs_sended_item__comment">{{doc.comments}}</div>
+                <div class="">
+                    <a href="/media/{{doc.docs}}" target="_blank">
+                        <div class="icons_download" title="Скачать"></div>
+                    </a>
+                    <a href="{% url 'main:sendeddocsdel' pk=doc.pk%}">
+                        <div class="icons_delete" title="Удалить"></div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if docs.paginator.num_pages > 1%}
+        <div class="pagination">
+            <span class="step_links">
+                {% if docs.has_previous %}
+                {% if docs.previous_page_number > 1 %}
+                <a href="?page=1" title="В начало">«</a>
+                {% endif %}
+                <a href="?page={{ docs.previous_page_number }}">{{ docs.previous_page_number }}</a>
+                {% endif %}
+
+                <a href="?page={{ docs.number }}" class="current">
+                    {{ docs.number }}
+                </a>
+                {% if docs.has_next %}
+                <a href="?page={{ docs.next_page_number }}">{{ docs.next_page_number }}</a>
+                {% if docs.paginator.num_pages > docs.next_page_number%}
+                <a href="?page={{ docs.paginator.num_pages }}" title="В конец">»</a>
+                {% endif %}
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+        {% else %}
+        <p class="text_empty">Пока что тут пусто</p>
+        {%endif%}
+    </section>
+</main>
+{% endblock %}

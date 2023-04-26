@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 from datetime import datetime
-from .models import AdvUser, DocsFile
+from .models import AdvUser, DocsFile, SendedDocs
 
 
 class RegisterUserForm(forms.ModelForm):
@@ -73,3 +73,9 @@ class ChangeDocsForm(forms.ModelForm):
     class Meta:
         model = DocsFile
         fields = ('name', 'status', 'comments')
+
+
+class SendDocs(forms.ModelForm):
+    class Meta:
+        model = SendedDocs
+        fields = '__all__'
